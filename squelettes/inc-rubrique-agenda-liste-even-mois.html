@@ -1,0 +1,20 @@
+#CACHE{24*3600}
+<BOUCLE_encours(EVENEMENTS){id_rubrique}{agendafull date_debut, date_fin, mois, (#ENV{date}|annee), (#ENV{date}|mois)}{statut=publie}>
+<div class="entree une clearfix">
+  [<p class="surtitre">(#SURTITRE)</p>]
+  <h2>[(#DATE_DEBUT|affdate)[ / (#DATE_FIN|jour|=={[(#DATE_DEBUT|jour)]}|?{'',[(#DATE_FIN|affdate)]})] | ]<a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></h2>
+  [<p class="soustitre">(#SOUSTITRE)</p>]
+  <p class="intro">[(#LOGO_ARTICLE||image_reduire{70,0}|inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]})]
+      [(#HORAIRE|=={oui}|?{
+      [(#REM) memes heures ?]
+      [(#DATE_DEBUT|=={#DATE_FIN}|?{[&agrave; (#DATE_DEBUT|heures)h][(#DATE_DEBUT|minutes) | ],''})]
+      [(#REM) heures différentes]
+      [(#DATE_DEBUT|!={#DATE_FIN}|?{de [(#DATE_DEBUT|heures)h][(#DATE_DEBUT|minutes)] &agrave; [(#DATE_FIN|heures)h][(#DATE_FIN|minutes) | ]})],''})]
+      [&agrave; (#LIEU|PtoBR)<br />]
+      [(#DESCRIPTIF)]<a href="#URL_ARTICLE" class="suite">>&nbsp;Lire la suite</a></p>
+  <p class="infosPlus">publi&eacute; le [(#DATE|affdate{d/m/Y})] <B_auteurs_un1> &bull; <:par_auteur:> <BOUCLE_auteurs_un1(AUTEURS){id_article}{", "}>#NOM</BOUCLE_auteurs_un1></B_auteurs_un1></p>
+</div>
+</BOUCLE_encours>
+</B_encours>
+<p class="message">Il n'y a pas d'événements notés dans notre agenda pour le mois de [(#ENV{date}|affdate_mois_annee)].</p>
+<//B_encours>

@@ -1,0 +1,23 @@
+
+<BOUCLE_revision(VERSIONS){id_version=#ENV{id_version}}{id_article}>
+<h2>Version #ID_VERSION <span style="color:gray;">&mdash;
+[(#DATE|date_relative),]
+[(#ID_AUTEUR|affiche_auteur_diff)] [-- (#TITRE_VERSION)]</span>
+</h2>
+
+
+[<blockquote>(#ID_ARTICLE|affiche_diff{#ID_VERSION}|safehtml)</blockquote>]
+
+
+</BOUCLE_revision>
+
+<hr />
+<ul>
+<BOUCLE_rev(VERSIONS){id_article}{par date}{inverse}{pagination 40}>
+[(#SET{a,[(#ENV{id_version}|=={#ID_VERSION}|?{span,a})]})]
+<li><[(#GET{a})]
+	href="[(#SELF|parametre_url{id_version,#ID_VERSION})]">#DATE</#GET{a}>
+	<span style="color:gray;">&mdash; [(#ID_AUTEUR|affiche_auteur_diff)] [-- (#TITRE_VERSION)]</span>
+	</li>
+</BOUCLE_rev>
+</ul>

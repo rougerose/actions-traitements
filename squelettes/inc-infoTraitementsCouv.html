@@ -1,0 +1,11 @@
+#CACHE{7*24*3600}
+<div class="boite clearfix">
+  <h2>Dernier Info&nbsp;Traitements</h2>
+  <BOUCLE_itcouv(MOTS){id_groupe=27}{par titre}{inverse}{0,1}>
+  <dl class="document">
+      <dt><a href="#URL_MOT" title="[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]">[(#TITRE|supprimer_numero)]</a></dt>
+      [<dd class="icone"><a href="#URL_MOT" title="[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]">(#LOGO_MOT||image_recadre{44,44, left top}|inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]})</a></dd>]
+      [<dd>(#DESCRIPTIF)</dd>]
+  </dl>
+  </BOUCLE_itcouv>
+</div>

@@ -1,0 +1,32 @@
+#CACHE{24*3600}
+<BOUCLE_p(ARTICLES){id_article}>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG">
+<head>
+    <title>[(#TITRE|supprimer_numero|supprimer_tags|attribut_html) :: ][(#NOM_SITE_SPIP|supprimer_tags|attribut_html)]</title>
+    [<meta name="description" content="(#DESCRIPITF|couper{150}|supprimer_tags|attribut_html)" />]
+    <INCLURE{fond=inc-head}>
+    
+</head>
+<body>
+  <div id="conteneur">
+    <div id="entete">
+      <INCLURE{fond=inc-logo}{id_rubrique}>
+      <INCLURE{fond=inc-menuPrincipal}{id_rubrique}>
+    </div><!-- fin entete -->
+    <INCLURE{fond=inc-filArianeArticle}{id_rubrique}{id_article}>
+    <INCLURE{fond=gribouille/inc-article}{env}>
+    <hr class="invisible" />
+    <INCLURE{fond=inc-piedPage}>
+  </div> <!-- fin conteneur -->
+</body>
+</html>
+</BOUCLE_p>
+[(#ID_ARTICLE|AccesRestreint_article_restreint|?{' ',''})
+<INCLURE{fond=gribouille/inc-identificationMembres}{id_article}>] 
+
+[(#ID_ARTICLE|AccesRestreint_article_restreint|?{'',' '})
+<INCLURE{fond=404}>]
+<//B_p>

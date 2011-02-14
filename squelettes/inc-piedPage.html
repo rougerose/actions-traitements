@@ -1,0 +1,17 @@
+<div id="piedPage" class="clearfix">
+  <ul>
+    <li class="firstChild"><a href="#URL_SITE_SPIP">Accueil</a></li>
+    <BOUCLE_article_contact(ARTICLES){titre_mot=contact}{doublons contact}>
+    <li><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></li>
+    </BOUCLE_article_contact>
+    <BOUCLE_articles_pied(ARTICLES){id_groupe=23}{par num titre, titre}{doublons contact}>
+    <li><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></li>
+    </BOUCLE_articles_pied>
+    <BOUCLE_espace_membres(RUBRIQUES){id_zone=2}{tout_voir}>
+    <li><a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a></li>
+    </BOUCLE_espace_membres>
+    <li>RSS : <a href="#URL_PAGE{backend}"><:syndiquer_site:></a></li>
+    <li>RSS : <a href="#URL_PAGE{podcast-audio}">Podcast audio</a></li>
+    <li>RSS : <a href="#URL_PAGE{podcast-video}">Podcast vid&eacute;o</a></li>
+  </ul>
+</div>

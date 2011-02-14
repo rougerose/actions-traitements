@@ -1,0 +1,20 @@
+BODY { background-color: #F5F5F5; color: black; font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif; }
+
+A { color: #993333; }
+
+BODY, P, TD, LI, INPUT, SELECT, TEXTAREA { font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif; }
+H1, H2, H3, H4, H5 { margin: 0px; padding: 0px; }
+UL { margin-top: 0px; padding-top: 0px; padding-bottom: 0px; }
+OL { margin-top: 0px; padding-top: 0px; padding-bottom: 0px; }
+FORM { margin: 0px; padding: 0px; }
+tt { color: Navy; }
+
+
+.header { padding: 10px; padding-top: 0px; }
+.page { background-color: #FFFFFF; padding: 10px; border: 1px inset; font-size:1em;}
+.footer { background-color: #DDDDDD;padding: 5px; border: 1px inset; }
+
+.copyright { font-size: 11px; color: #AAAAAA; text-align: right; }
+.copyright A { color: #AAAAAA; }
+.searchbox { background: #FFFFF8; border: 0px; padding: 0px; margin: 0px; }
+.debug { font-size: 11px; color: #888888; }

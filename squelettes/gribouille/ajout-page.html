@@ -1,0 +1,19 @@
+#CACHE{3600*24}
+<BOUCLE_r(RUBRIQUES){id_rubrique}>
+<div id="conteneurFormulaireAjoutPage" class="clearfix">
+    <form action="#URL_RUBRIQUE" method="post" id="formulaireAjoutPage">
+    <?php
+    // Creation d'un nouvel article, cf. article_fonctions.php
+    include_spip('inc/autoriser');
+    if (autoriser('publierdans', 'rubrique', '#ID_RUBRIQUE')) {
+        echo '<label for="ajouter_page_wiki">Titre de la page</label>
+        <input name="ajouter_page_wiki" type="text" value="" />
+            <label style="display:none;">Laissez ce champ vide :
+        <input name="pas_de_robot_merci" type="text" value="" /></label>
+            <input type="hidden" name="id_rubrique" value="#ID_RUBRIQUE" />
+        <p class="spip_bouton"><input type="submit" name="ok" value="Valider" /></p>';
+        }
+    ?>
+    </form>
+</BOUCLE_r>
+</div>

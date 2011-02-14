@@ -1,0 +1,59 @@
+/* 
+	-------------------------------------------------
+	Styles impression actions-traitements.org
+	------------------------------------------------
+	version 1. Date : 27/07/2008
+	------------------------------------------------
+	auteur : christophe le drean
+	------------------------------------------------
+*/
+
+body {
+	color: black;
+	background-color: white;
+	text-align: left;
+	font: 12pt/15pt "Lucida Grande", Lucida, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#menu, #banniere, #secondaire, #piedPage, hr.invisible {
+	display: none;
+	}
+
+#entete, #conteneur, #filAriane, #contenu {
+	background: none;
+	float: none !important;
+	margin: 0 5%;
+	padding: 0;
+	width: auto;
+}
+
+#contenu {
+	margin-left: 10%;
+}
+
+a:link, a:visited {
+	color: #720e11;
+	background: transparent;
+	border: 0;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+a img {
+	border: 0;
+}
+
+#contenu a:link:after, #contenu a:visited:after {
+   content: " [" attr(href) "] ";
+   font-size: 80%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	line-height: normal;
+	margin: 2em 0 0;
+}
+
+div.chapo {
+	font-weight: bold;
+}
+

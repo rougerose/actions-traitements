@@ -1,0 +1,143 @@
+#CACHE{24*3600}
+<BOUCLE_p(RUBRIQUES){id_rubrique}> [(#REM) squelette pour la rubrique Actu/Revue de presse ]
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG">
+<head>
+    <title>[(#TITRE|supprimer_numero|supprimer_tags|attribut_html) :: ][(#NOM_SITE_SPIP|supprimer_tags|attribut_html)]</title>
+    [<meta name="description" content="(#INTRODUCTION|couper{150}|supprimer_tags|attribut_html)" />]
+    [(#REM) Lien vers le flux RSS de la rubrique ]
+    <link rel="alternate" type="application/rss+xml" title="<:syndiquer_rubrique:>" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
+    <INCLURE{fond=inc-head}>
+</head>
+<body>
+  <div id="conteneur">
+    <div id="entete">
+      [(#INCLURE{fond=inc-logo}{id_rubrique})]
+      [(#INCLURE{fond=inc-menuPrincipal}{id_rubrique})]
+    </div><!-- fin entete -->
+    [(#INCLURE{fond=inc-filArianeRubrique}{id_rubrique})]
+    <div id="contenu" class="clearfix">
+      <div id="principal">
+
+        <div id="descriptifRubrique">
+            <B_titre_mot>
+            <BOUCLE_titre_mot(MOTS){id_mot=#ENV{mot}}>
+            [(#SET{titre_mot, [(#TITRE|supprimer_numero)]})]
+            </BOUCLE_titre_mot>
+            </B_titre_mot>
+            <h1>[(#TITRE|supprimer_numero)][(#ENV{mot}|?{[&nbsp;: (#GET{titre_mot})],[&nbsp;: (#ENV{date}|annee)]})]</h1>
+            [(#LOGO_RUBRIQUE||image_reduire{100,0}|inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]})]
+            [(#TEXTE|image_reduire{500,0})]
+        </div>
+
+        [(#ENV{mot}|?{
+            [(#INCLURE{fond=inc-presseRubriqueTriMot}{id_rubrique}{mot=#ENV{mot}}{self=#SELF})]
+            ,
+            [(#INCLURE{fond=inc-presseRubriqueTriDate}{id_rubrique}{date=#ENV{date}}{self=#SELF})]
+        })]
+        
+        
+        
+        
+        
+        
+        
+        <B_sousrubriques>
+        <div id="sousrubriques" class="clearfix">
+            <h2>Sous-rubriques</h2>
+            <BOUCLE_sousrubriques(RUBRIQUES){id_parent}{par num titre, titre}>
+            <dl class="[demiColonne (#COMPTEUR_BOUCLE|alterner{impaire,paire})]">
+                <dt>[<a href="#URL_RUBRIQUE">(#TITRE|supprimer_numero)</a>]</dt>
+                [<dd class="icone">(#LOGO_RUBRIQUE||image_reduire{70,0}|inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]})</dd>]
+                <dd class="descriptif">[(#DESCRIPTIF|PtoBR)] <a href="#URL_RUBRIQUE" class="suite">>&nbsp;Suite</a></dd>
+            </dl>
+            </BOUCLE_sousrubriques>
+        </div>
+        </B_sousrubriques>
+        
+      </div> <!-- fin principal -->
+      <hr class="invisible" />
+      <div id="secondaire">
+        #FORMULAIRE_RECHERCHE
+        
+        [(#INCLURE{fond=inc-menuSecondaire}{id_rubrique})]
+        
+        <div class="boite">
+            <h2>Sélection</h2>
+            <form action="spip.php" method="get" accept-charset="utf-8" class="tri" id="formDate">
+                <input type="hidden" name="rubrique" value="#ID_RUBRIQUE">
+                <label for="date">Par date</label>
+                <div class="chargementDate chargement" style="display:none;">
+                    <p><img src="[(#CHEMIN{img/ajax-loader.gif})]" width="16" height="16" alt="chargement ajax" style="border:0; vertical-align:middle;">Chargement&hellip;</p>
+                </div>
+                <select name="date" id="date" onchange="this.parentNode.submit();">
+                    [(#REM) contenu du menu en ajax via ajax-revuePresse_menuDate.html]
+                </select>
+                <input type="submit" value="&rarr;">
+            </form>
+            
+            <form action="#SELF" method="get" accept-charset="utf-8" class="tri" id="formMot">
+                <input type="hidden" name="rubrique" value="#ID_RUBRIQUE">
+                <label for="mot">Par mot-cl&eacute;</label>
+                <div class="chargementMot chargement" style="display:none;">
+                    <p><img src="[(#CHEMIN{img/ajax-loader.gif})]" width="16" height="16" alt="chargement ajax" style="border:0; vertical-align:middle;">Chargement&hellip;</p>
+                </div>
+                <select name="mot" id="mot" onchange="this.parentNode.submit();">
+                    [(#REM) contenu du menu en ajax via ajax-revuePresse_menuMot.html]
+                </select>
+                <input type="submit" value="&rarr;">
+            </form>
+        </div>
+        
+        <B_mots_rubrique>
+        <div class="boite">
+            <h2>Mots-cl&eacute;s</h2>
+            <ul>
+                <BOUCLE_mots_rubrique(MOTS){id_rubrique}{type!==modalite}{par num titre, titre}>
+                <li><a href="#URL_MOT">[(#TITRE|supprimer_numero)]</a></li>
+                </BOUCLE_mots_rubrique>
+            </ul>
+        </div>
+        </B_mots_rubrique>
+        
+        <B_doc_rubrique>
+        <div id="documents" class="boite">
+          <h2>Documents</h2>
+          <BOUCLE_doc_rubrique(DOCUMENTS){id_rubrique!=1004}{id_rubrique}{par num titre, titre}{doublons}>
+          <dl class="document">
+              [<dt><a href="#URL_DOCUMENT"[ type="(#MIME_TYPE)"][ title="(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT}|supprimer_tags|attribut_html)[ &bull; (#TYPE_DOCUMENT)][ &bull; (#TAILLE|taille_en_octets)]"]>(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT})</a></dt>]
+              [<dd class="icone"><a href="#URL_DOCUMENT" type="#MIME_TYPE"[ title="(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT}|supprimer_tags|attribut_html)[ &bull; (#TYPE_DOCUMENT)][ &bull; (#TAILLE|taille_en_octets)]"]>(#LOGO_DOCUMENT||image_reduire{44,0}|inserer_attribut{alt,[(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT}|supprimer_tags|attribut_html)] - #TYPE_DOCUMENT - [(#TAILLE|taille_en_octets)]})</a></dd>]
+              <dd>[(#DESCRIPTIF)](#ID_DOCUMENT [(#TYPE_DOCUMENT)][ &bull; (#TAILLE|taille_en_octets)])</dd>
+          </dl>
+          </BOUCLE_doc_rubrique>
+        </div>
+        </B_doc_rubrique>
+        
+        [(#ID_RUBRIQUE|=={1019}|?{'',' '})
+        [(#INCLURE{fond=inc-reunionQualiteVie})]
+        ]
+
+        [(#INCLURE{fond=inc-infoCartes}{id_rubrique})]
+        
+        [(#REM) on affiche pas le dernier numéro dans la rubrique Info Traitements ]
+        [(#ID_RUBRIQUE|=={1004}|?{'',' '})
+        [(#INCLURE{fond=inc-infoTraitementsCouv}{id_rubrique})]
+        ]
+
+        [(#INCLURE{fond=inc-raccourcis})]
+
+        [(#INCLURE{fond=inc-agenda})]
+        
+        
+        [(#INCLURE{fond=inc-liens}{id_rubrique})]
+        
+      </div> <!-- fin secondaire -->
+    </div> <!-- fin contenu -->
+    <hr class="invisible" />
+    [(#INCLURE{fond=inc-piedPage})]
+  </div> <!-- fin conteneur -->
+</body>
+</html>
+</BOUCLE_p>

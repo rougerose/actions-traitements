@@ -1,0 +1,102 @@
+<BOUCLE_p(RUBRIQUES){id_rubrique}>
+<div id="contenu" class="clearfix">
+  <div id="principal">
+    <div id="descriptifRubrique">
+        <h1>[(#TITRE|supprimer_numero)]</h1>
+        [(#LOGO_RUBRIQUE||image_reduire{100,0}|inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]})]
+        [(#TEXTE|image_reduire{500,0})]
+    </div>
+    
+    <BOUCLE_liste_art(ARTICLES){id_rubrique}{0,10}{!par date}{doublons}>
+    <div class="entree une clearfix">
+      [<p class="surtitre">(#SURTITRE)</p>]
+      <h2><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></h2>
+      [<p class="soustitre">(#SOUSTITRE)</p>]
+      <p class="intro">[(#LOGO_ARTICLE||image_reduire{70,0}|inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]})][(#DESCRIPTIF)]<a href="#URL_ARTICLE" class="suite">>&nbsp;Lire la suite</a></p>
+      <p class="infosPlus">publi&eacute; le [(#DATE|affdate{d/m/Y})] <B_auteurs_un1> &bull; <:par_auteur:> <BOUCLE_auteurs_un1(AUTEURS){id_article}{", "}>#NOM</BOUCLE_auteurs_un1></B_auteurs_un1></p>
+    </div>
+    </BOUCLE_liste_art>
+    
+    <B_articles_precedents>
+    <div class="encadre clearfix">
+      <h2>Nos articles pr&eacute;c&eacute;dents</h2>
+      #ANCRE_PAGINATION
+      <dl>
+        <BOUCLE_articles_precedents(ARTICLES){id_rubrique}{lang}{!par date}{doublons}{pagination 5}>
+        <dt><a href="#URL_ARTICLE" title="[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]">[(#TITRE|supprimer_numero)]</a>[ &bull; <span class="infosPlus">(#DATE|affdate{d/m/Y})</span>]</dt>
+        </BOUCLE_articles_precedents>
+      </dl>
+      [<div class="pagination">
+        (#PAGINATION{page_precedent_suivant})
+        <p class="infoCompteur">[(#TOTAL_BOUCLE) [(#TOTAL_BOUCLE|>{1}|?{'articles affich&eacute;s','article affich&eacute;'})] sur ][(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'disponibles','disponible'})].] [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi) [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi|>{1}|?{'pages','page'})].]</p>
+      </div>]
+    </div>
+    </B_articles_precedents>
+    
+    <B_breves>
+    <div class="encadre clearfix">
+      <h2>En bref</h2>
+      #ANCRE_PAGINATION
+      <dl>
+        <BOUCLE_breves(BREVES){id_rubrique}{lang}{!par date}{doublons}{pagination 5}>
+        <dt><a href="#URL_BREVE" title="[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]">[(#TITRE|supprimer_numero)]</a>[ &bull; <span class="infosPlus">(#DATE|affdate{d/m/Y})</span>]</dt>
+        </BOUCLE_breves>
+      </dl>
+      [<div class="pagination">
+        (#PAGINATION{page_precedent_suivant})
+        <p class="infoCompteur">[(#TOTAL_BOUCLE) [(#TOTAL_BOUCLE|>{1}|?{'br&egrave;ves affich&eacute;es','br&egrave;ves affich&eacute;e'})] sur ][(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'disponibles','disponible'})].] [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi) [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi|>{1}|?{'pages','page'})].]</p>
+      </div>]
+    </div>
+    </B_breves>
+  </div> <!-- fin principal -->
+  <hr class="invisible" />
+  <div id="secondaire">
+    <INCLURE{fond=inc-id}>
+    
+    #FORMULAIRE_RECHERCHE
+    
+    <INCLURE{fond=inc-menuSecondaire}{id_rubrique}>
+    
+    <B_mots_rubrique>
+    <div class="boite">
+        <h2>Mots-cl&eacute;s</h2>
+        <ul>
+            <BOUCLE_mots_rubrique(MOTS){id_rubrique}{type!==modalite}{par num titre, titre}>
+            <li><a href="#URL_MOT">[(#TITRE|supprimer_numero)]</a></li>
+            </BOUCLE_mots_rubrique>
+        </ul>
+    </div>
+    </B_mots_rubrique>
+    
+    <B_doc_rubrique>
+    <div id="documents" class="boite">
+      <h2>Documents</h2>
+      <BOUCLE_doc_rubrique(DOCUMENTS){id_rubrique!=1004}{id_rubrique}{par num titre, titre}{doublons}>
+      <dl class="document">
+          [<dt><a href="#URL_DOCUMENT"[ type="(#MIME_TYPE)"][ title="(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT}|supprimer_tags|attribut_html)[ &bull; (#TYPE_DOCUMENT)][ &bull; (#TAILLE|taille_en_octets)]"]>(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT})</a></dt>]
+          [<dd class="icone"><a href="#URL_DOCUMENT" type="#MIME_TYPE"[ title="(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT}|supprimer_tags|attribut_html)[ &bull; (#TYPE_DOCUMENT)][ &bull; (#TAILLE|taille_en_octets)]"]>(#LOGO_DOCUMENT||image_reduire{44,0}|inserer_attribut{alt,[(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT}|supprimer_tags|attribut_html)] - #TYPE_DOCUMENT - [(#TAILLE|taille_en_octets)]})</a></dd>]
+          <dd>[(#DESCRIPTIF)](#ID_DOCUMENT [(#TYPE_DOCUMENT)][ &bull; (#TAILLE|taille_en_octets)])</dd>
+      </dl>
+      </BOUCLE_doc_rubrique>
+    </div>
+    </B_doc_rubrique>
+    
+    [(#ID_RUBRIQUE|=={1019}|?{'',' '})
+    <INCLURE{fond=inc-reunionQualiteVie}>]
+
+    <INCLURE{fond=inc-infoCartes}{id_rubrique}>
+
+    [(#REM) on affiche pas le dernier numéro dans la rubrique Info Traitements ]
+    [(#ID_RUBRIQUE|=={1004}|?{'',' '})
+    <INCLURE{fond=inc-infoTraitementsCouv}{id_rubrique}>
+    ]
+
+    <INCLURE{fond=inc-raccourcis}>
+
+    <INCLURE{fond=inc-agenda}>
+
+    <INCLURE{fond=inc-liens}{id_rubrique}>
+    
+  </div> <!-- fin secondaire -->
+</div> <!-- fin contenu -->
+</BOUCLE_p>

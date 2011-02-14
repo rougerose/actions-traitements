@@ -1,0 +1,63 @@
+#HTTP_HEADER{"Cache-Control: no-store, no-cache, must-revalidate"}
+#HTTP_HEADER{Pragma: no-cache}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG">
+<head>
+    <title><:pass_erreur:> 404 :: [(#NOM_SITE_SPIP|supprimer_tags|attribut_html)]</title>
+    <INCLURE{fond=inc-head}>
+    
+</head>
+<body>
+  <div id="conteneur">
+    <div id="entete">
+      <INCLURE{fond=inc-logo}>
+      <INCLURE{fond=inc-menuPrincipal}>
+    </div><!-- fin entete -->
+    <INCLURE{fond=inc-filArianeArticle}>
+    <div id="contenu" class="clearfix">
+      <div id="principal" class="articles">
+        #DEBUT_SURLIGNE
+        <h1><:pass_erreur:> 404</h1>
+
+        
+
+        
+        <div id="contenuArticle">
+            
+            <div class="chapo">
+                <p>La page demandée n'existe pas</p>
+                
+                
+                
+                
+            </div><!-- fin div chapo -->
+
+
+
+
+
+
+        
+        </div><!-- fin contenuArticle -->
+        #FIN_SURLIGNE
+      </div><!-- fin principal -->
+      <hr class="invisible" />
+      <div id="secondaire">
+        #FORMULAIRE_RECHERCHE
+
+        
+        
+
+        
+        <INCLURE{fond=inc-raccourcis}>
+
+        
+      </div> <!-- fin secondaire -->
+    </div><!-- fin contenu -->
+    <hr class="invisible" />
+    <INCLURE{fond=inc-piedPage}>
+  </div> <!-- fin conteneur -->
+</body>
+</html>

@@ -1,0 +1,84 @@
+<BOUCLE_p(RUBRIQUES){id_rubrique}>
+<div id="contenu" class="clearfix">
+  <div id="principal">
+
+    <div id="descriptifRubrique">
+        <h1>
+            [(#TITRE|supprimer_numero)]
+            [(#ENV{periode}|=={'jour'}|?{' '}) [ | Les rendez-vous du (#ENV{date}|affdate)]]
+            [(#ENV{periode}|=={'mois'}|?{' '})[ | Les rendez-vous de (#ENV{date}|affdate_mois_annee)]]
+            [(#ENV{periode}|=={''}|?{' '})[ | Les rendez-vous de (#ENV{date}|affdate_mois_annee)]]
+        </h1>
+        [(#LOGO_RUBRIQUE||image_reduire{100,0}|inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]})]
+        [(#TEXTE|image_reduire{500,0})]
+    </div>
+    [(#ENV{periode}|=={'jour'}|?{' '})
+    <INCLURE{fond=inc-rubrique-agenda-liste-even-jour}{env}>
+    ]
+    [(#REM) dans l'hypothèse où l'url contient periode=mois ou rien du tout -- si on passe par la navigation principale -- )]
+    [(#ENV{periode}|!={'jour'}|?{' '})
+    <INCLURE{fond=inc-rubrique-agenda-liste-even-mois}{env}>
+    ]
+    
+    <B_a_venir>
+    <div class="encadre clearfix">
+      <h2>Les rendez-vous des prochains mois</h2>
+      #ANCRE_PAGINATION
+      <dl>
+        <BOUCLE_a_venir(EVENEMENTS){id_rubrique}{mois_relatif<0}{statut=publie}{pagination 5}>
+        <dt><a href="#URL_ARTICLE" title="[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]">[(#TITRE|supprimer_numero)]</a>[ &bull; <span class="infosPlus">(#DATE_DEBUT|affdate{d/m/Y})</span>]</dt>
+        </BOUCLE_a_venir>
+      </dl>
+      [<div class="pagination">
+        (#PAGINATION{page_precedent_suivant})
+        <p class="infoCompteur">[(#TOTAL_BOUCLE) [(#TOTAL_BOUCLE|>{1}|?{'articles affich&eacute;s','article affich&eacute;'})] sur ][(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'disponibles','disponible'})].] [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi) [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi|>{1}|?{'pages','page'})].]</p>
+      </div>]
+    </div>
+    </B_a_venir>
+    
+    
+    <div id="agendaMoisPrecedentSuivant">
+        <p>
+            [<a href="(#SELF|parametre_url{date,[(#ENV{date}|Agenda_moisdecal{-1,'Y-m'})]}|parametre_url{periode,mois})" title="[(#ENV{date}|Agenda_moisdecal{-1,'Y-m'}|affdate_mois_annee)]">&#x2190; [(#ENV{date}|Agenda_moisdecal{-1,'Y-m'}|affdate_mois_annee)]</a>] |
+            [(#ENV{periode}|=={'jour'}|?{' '})
+            [<a href="(#SELF|parametre_url{date,[(#ENV{date}|affdate{'Y-m'})]}|parametre_url{periode,mois})">[(#ENV{date}|affdate_mois_annee)]</a>] 
+            | 
+            ]
+            [<a href="(#SELF|parametre_url{date,[(#ENV{date}|Agenda_moisdecal{1,'Y-m'})]}|parametre_url{periode,mois})" title="[(#ENV{date}|Agenda_moisdecal{1,'Y-m'}|affdate_mois_annee)]">[(#ENV{date}|Agenda_moisdecal{1,'Y-m'}|affdate_mois_annee)] &#x2192;</a>]
+        </p>
+    </div>
+    
+
+  </div> <!-- fin principal -->
+  <hr class="invisible" />
+  <div id="secondaire">
+    <INCLURE{fond=inc-id}>
+    
+    #FORMULAIRE_RECHERCHE
+    
+    <INCLURE{fond=inc-menuSecondaire}{id_rubrique}>
+    
+    
+    <div id="calendrier" class="boite">
+        #CALENDRIER_MINI{#ENV{date},'date',#SELF}
+    </div>
+    
+    [(#ID_RUBRIQUE|=={1019}|?{'',' '})
+    <INCLURE{fond=inc-reunionQualiteVie}>]
+    
+    <INCLURE{fond=inc-infoCartes}{id_rubrique}>
+    
+    [(#REM) on affiche pas le dernier numéro dans la rubrique Info Traitements ]
+    [(#ID_RUBRIQUE|=={1004}|?{'',' '})
+    <INCLURE{fond=inc-infoTraitementsCouv}{id_rubrique}>
+    ]
+
+    <INCLURE{fond=inc-raccourcis}>
+
+    <INCLURE{fond=inc-agenda}>
+    
+    <INCLURE{fond=inc-liens}{id_rubrique}>
+    
+  </div> <!-- fin secondaire -->
+</div> <!-- fin contenu -->
+</BOUCLE_p>

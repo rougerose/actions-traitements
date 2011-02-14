@@ -1,0 +1,9 @@
+#CACHE{7*24*3600}
+<div class="formulaire" id="recherche">
+  <form action="[(#ENV{lien})]" method="get">
+    [(#ENV{lien}|form_hidden)]
+    [<input type="hidden" name="lang" value="(#ENV{lang})" />]
+    <p><label for="champsRecherche"><:info_rechercher:></label>
+    <input type="text" class="forml" name="recherche" id="champsRecherche" value="[(#ENV{recherche}|sinon{<:info_rechercher:>" onfocus="this.value='';})]" /></p>
+    </form>
+</div>

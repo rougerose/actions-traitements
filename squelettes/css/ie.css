@@ -1,0 +1,18 @@
+/* Styles spécifiques à IE toutes versions */
+/* Permet de corriger tous les bugs d'affichage de IE */
+
+#menuSecondaire li {
+	/* si la taille n'est pas spéficiée les balises <a> ne sont pas alignées sur l'image qui précéde */
+	width: 100%;
+}
+
+#glossaire div.texte {
+}
+
+#glossaire div.texteCache {
+	top:auto;
+	margin:0;
+	padding-top:0;
+	width:100%;
+	position: relative;
+}

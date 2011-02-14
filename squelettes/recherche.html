@@ -1,0 +1,151 @@
+#CACHE{24*3600}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG">
+<head>
+    <title><:resultats_recherche:> [(#RECHERCHE|textebrut)] :: [(#NOM_SITE_SPIP|supprimer_tags|attribut_html)]</title>
+    <INCLURE{fond=inc-head}>
+</head>
+<body id="resultatsRecherche">
+    <div id="conteneur">
+        <div id="entete">
+            <INCLURE{fond=inc-logo}>
+            <INCLURE{fond=inc-menuPrincipal}{id_rubrique}>
+        </div><!-- fin entete -->
+        <INCLURE{fond=inc-filArianeRubrique}{id_rubrique}>
+        <div id="contenu" class="clearfix">
+            <div id="principal">
+                <h1><:resultats_recherche:> &#171;&nbsp;#RECHERCHE&nbsp;&#187;</h1>
+
+
+                [(#REM) Articles trouves ]
+                <B_articles>
+                #ANCRE_PAGINATION
+                <div class="encadre">
+                    <h2><:articles:> [(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'r&eacute;sultats','r&eacute;sultat'})]]</h2>
+
+                    <BOUCLE_articles(ARTICLES){recherche}{par points}{inverse}{pagination}>
+                    <dl>
+                        <dt><strong>[(#_articles:COMPTEUR_BOUCLE|plus{#ENV{debut}})].</strong> <a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></dt>
+                        
+                        <dd class="url"><a href="#URL_ARTICLE">[(#URL_ARTICLE|url_absolue)]</a></dd>
+                    </dl>
+                    </BOUCLE_articles>
+                    [<div class="pagination">
+                        (#PAGINATION{page_precedent_suivant})
+
+                        <p class="infoCompteur">[(#TOTAL_BOUCLE) [(#TOTAL_BOUCLE|>{1}|?{'articles affich&eacute;s','article affich&eacute;'})] sur ][(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'disponibles','disponible'})].] [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi) [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi|>{1}|?{'pages','page'})].]</p>
+                    </div>]
+                </div>
+                </B_articles>
+
+                [(#REM) Breves trouvees ]
+                <B_breves>
+                #ANCRE_PAGINATION
+                <div class="encadre">
+                    <h2><:breves:> [(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'r&eacute;sultats','r&eacute;sultat'})]]</h2>
+                    <BOUCLE_breves(BREVES){recherche}{par points}{inverse}{pagination 5}>
+                    <dl>
+                        <dt><strong>[(#_breves:COMPTEUR_BOUCLE|plus{#ENV{debut}})].</strong> <a href="#URL_BREVE">[(#TITRE|supprimer_numero)]</a></dt>
+                        
+                        <dd class="url"><a href="#URL_BREVE">[(#URL_BREVE|url_absolue)]</a></dd>
+                    </dl>
+                    </BOUCLE_breves>
+                    [<div class="pagination">
+                        (#PAGINATION{page_precedent_suivant})
+                        <p class="infoCompteur">[(#TOTAL_BOUCLE) [(#TOTAL_BOUCLE|>{1}|?{'br&egrave;ves affich&eacute;s','br&egrave;ve affich&eacute;'})] sur ][(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'disponibles','disponible'})].] [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi) [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi|>{1}|?{'pages','page'})].]</p>
+                    </div>]
+                </div>
+                </B_breves>
+
+                [(#REM) Rubriques trouvees ]
+                <B_rubriques>
+                #ANCRE_PAGINATION
+                <div class="encadre">
+                    <h2><:rubriques:> [(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'r&eacute;sultats','r&eacute;sultat'})]]</h2>
+                    <BOUCLE_rubriques(RUBRIQUES){recherche}{par points}{inverse}{pagination 5}>
+                    <dl>
+                        <dt><strong>[(#_rubriques:COMPTEUR_BOUCLE|plus{#ENV{debut}})].</strong> <a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a></dt>
+                        
+                        <dd class="url"><a href="#URL_RUBRIQUE">[(#URL_RUBRIQUE|url_absolue)]</a></dd>
+                    </dl>
+                    </BOUCLE_rubriques>
+                    [<div class="pagination">
+                        (#PAGINATION{page_precedent_suivant})
+                        <p class="infoCompteur">[(#TOTAL_BOUCLE) [(#TOTAL_BOUCLE|>{1}|?{'rubriques affich&eacute;s','rubrique affich&eacute;'})] sur ][(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'disponibles','disponible'})].] [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi) [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi|>{1}|?{'pages','page'})].]</p>
+                    </div>]
+                </div>
+                </B_rubriques>
+
+                [(#REM) Documents trouves ]
+                <B_documents>
+                #ANCRE_PAGINATION
+                <div class="encadre">
+                    <h2><:documents:> [(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'r&eacute;sultats','r&eacute;sultat'})]]</h2>
+                    <BOUCLE_documents(DOCUMENTS){recherche}{par points}{inverse}{pagination 5}>
+                    <dl>
+                        <dt><strong>[(#_documents:COMPTEUR_BOUCLE|plus{#ENV{debut}})].</strong> <a href="URL_DOCUMENT"[ type="(#MIME_TYPE)"][ title="(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT}|supprimer_tags|attribut_html)[ &bull; (#TYPE_DOCUMENT)][ &bull; (#TAILLE|taille_en_octets)]">[(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT})]</a></dt>
+                        
+                        <dd class="url"><a href="#URL_DOCUMENT"[ type="(#MIME_TYPE)"][ title="(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT}|supprimer_tags|attribut_html)[ &bull; (#TYPE_DOCUMENT)][ &bull; (#TAILLE|taille_en_octets)]">[(#URL_DOCUMENT|url_absolue)]</a></dd>
+                    </dl>
+                    </BOUCLE_documents>
+                    [<div class="pagination">
+                        (#PAGINATION{page_precedent_suivant})
+                        <p class="infoCompteur">[(#TOTAL_BOUCLE) [(#TOTAL_BOUCLE|>{1}|?{'documents affich&eacute;s','document affich&eacute;'})] sur ][(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'disponibles','disponible'})].] [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi) [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi|>{1}|?{'pages','page'})].]</p>
+                    </div>]
+                </div>
+                </B_documents>
+
+                [(#REM) Mots-cles trouves ]
+                <B_mots>
+                #ANCRE_PAGINATION
+                <div class="encadre">
+                    <h2><:mots_clefs:> [(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'r&eacute;sultats','r&eacute;sultat'})]]</h2>
+                    <BOUCLE_mots(MOTS){recherche}{par points}{inverse}{pagination 5}>
+                    <dl>
+                        <dt><strong>[(#_mots:COMPTEUR_BOUCLE|plus{#ENV{debut}})].</strong> <a href="#URL_MOT">[(#TITRE|supprimer_numero)]</a></dt>
+                        
+                        <dd class="url"><a href="#URL_MOT">[(#URL_MOT|url_absolue)]</a></dd>
+                    </dl>
+                    </BOUCLE_mots>
+                    [<div class="pagination">
+                        (#PAGINATION{page_precedent_suivant})
+                        <p class="infoCompteur">[(#TOTAL_BOUCLE) [(#TOTAL_BOUCLE|>{1}|?{'mots-cl&eacute;s affich&eacute;s','mot-cl&eacute; affich&eacute;'})] sur ][(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'disponibles','disponible'})].] [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi) [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi|>{1}|?{'pages','page'})].]</p>
+                    </div>]
+                </div>
+                </B_mots>
+
+                [(#REM) Sites web trouves ]
+                <B_sites>
+                #ANCRE_PAGINATION
+                <div class="encadre">
+                    <h2><:sites_web:> [(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'r&eacute;sultats','r&eacute;sultat'})]]</h2>
+                    <BOUCLE_sites(SITES){recherche}{par points}{inverse} {pagination 5}>
+                    <dl>
+                        <dt><strong>[(#_sites:COMPTEUR_BOUCLE|plus{#ENV{debut}})].</strong> <a href="[(#URL_PAGE{site,id_syndic=#ID_SYNDIC})]">[(#NOM_SITE|supprimer_numero)]</a></dt>
+                        
+                        <dd class="url"><a href="[(#URL_PAGE{site,id_syndic=#ID_SYNDIC})]">[(#URL_PAGE{site,id_syndic=#ID_SYNDIC})]</a></dd>
+                    </dl>
+                    </BOUCLE_sites>
+                    [<div class="pagination">
+                        (#PAGINATION{page_precedent_suivant})
+                        <p class="infoCompteur">[(#TOTAL_BOUCLE) [(#TOTAL_BOUCLE|>{1}|?{'sites affich&eacute;s','site affich&eacute;'})] sur ][(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'disponibles','disponible'})].] [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi) [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi|>{1}|?{'pages','page'})].]</p>
+                    </div>]
+                </div>
+                </B_sites>
+
+
+            </div> <!-- fin principal -->
+            <hr class="invisible" />
+            <div id="secondaire">
+                #FORMULAIRE_RECHERCHE
+
+                <INCLURE{fond=inc-raccourcis}>
+
+            </div> <!-- fin secondaire -->
+        </div> <!-- fin contenu -->
+        <hr class="invisible" />
+        <INCLURE{fond=inc-piedPage}>
+    </div> <!-- fin conteneur -->
+</body>
+</html>

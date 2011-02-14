@@ -1,0 +1,125 @@
+[(#REM) Page d'accueil de gribouille ]
+<BOUCLE_r(RUBRIQUES){id_rubrique}>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+
+<head>
+<title>#TITRE</title>
+<INCLURE{fond=gribouille/inc-head}>
+</head>
+
+
+<body>
+
+<h1 class="wiki_name">#TITRE</h1>
+
+<h1 class="#EDIT{titre} page_name">#TITRE</h1>
+
+
+<INCLURE{fond=gribouille/inc-entete}{id_rubrique}>
+
+
+<div id="contenu" class="page">
+
+[<div style='float:left;[width:(#LOGO_RUBRIQUE||extraire_attribut{width})px;]margin:0 9px 5px 0;'>(#LOGO_RUBRIQUE)</div>]
+
+<div class="#EDIT{texte} chapo texte">[(#TEXTE|sinon{Bienvenue sur le carnet de notes de #NOM_SITE_SPIP.})]</div>
+
+
+[<h2>Recherche : (#RECHERCHE)</h2>]
+
+<B_recherche>
+<ul>
+<BOUCLE_recherche(ARTICLES){recherche}{branche}{!par points}{0,50}>
+<li>
+[<div class="#EDIT{surtitre} surtitre">(#SURTITRE)</div>]
+<h2 class="#EDIT{titre} titre">#TITRE</h2>
+[<div class="#EDIT{soustitre} soustitre">(#SOUSTITRE)</div>]
+[<div class="#EDIT{chapo} chapo">(#CHAPO)</div>]
+[<div class="#EDIT{texte}">(#TEXTE**|strlen|>{1500}|?{[(#TEXTE|couper{1000})],#TEXTE}|sinon{<i>texte vide</i>})[
+	<div class="notes">(#NOTES)</div>
+]</div>]
+[<div class="#EDIT{ps}">(#PS)</div>]
+
+
+<div style="text-align:#LANG_RIGHT;"><a href="#URL_ARTICLE">#TITRE</a> (score: #POINTS)</div>
+</li>
+</BOUCLE_recherche>
+</ul>
+</B_recherche>
+
+[(#RECHERCHE|?{Pas de r&#233;sultat})]
+
+<div style="border-left: 2px solid rgb(204, 204, 204); float: right; width: 40%; margin-left: 30px; padding-left: 10px;">
+
+<B_revisions>
+<div style="font-size: small;">
+<a id="revisions" name="revisions"></a>
+<h2>Derniers changements</h2>
+<ul>
+<BOUCLE_revisions(VERSIONS articles){branche}{par date}{inverse}{pagination 50}{statut=publie}>
+
+<li>
+[(#SET{gras,[(#ID_ARTICLE|unique|?{b})]})]
+[<(#GET{gras})>]<a href="[(#URL_ARTICLE|parametre_url{id_version,#ID_VERSION})]"
+rel="noindex,nofollow" title="version #ID_VERSION">#TITRE</a>[</(#GET{gras})>]
+
+<span style='color:gray;'>&mdash; [<abbr title="[(#DATE|date_iso)]">(#DATE|date_relative)</abbr>], [(#ID_AUTEUR|affiche_auteur_diff)]
+</span>
+</li>
+
+</BOUCLE_revisions>
+</ul>
+#PAGINATION
+</div>
+</B_revisions>
+
+
+
+</div>
+
+<h2>Pages</h2>
+
+<B_pages>
+[<p class="pagination">(#PAGINATION)</p>]
+<ul>
+<BOUCLE_pages(ARTICLES)
+	{id_rubrique}
+	{!par popularite}
+	{pagination 50}
+>
+<li><b><a href="#URL_ARTICLE">#TITRE</a></b>
+<span style='color:gray;'>&mdash;  [(#INTRODUCTION|couper{80}|supprimer_tags)]</span>
+</li>
+</BOUCLE_pages>
+</ul>
+</B_pages>
+
+<B_sous>
+<hr />
+
+<h2>Sous-rubriques</h2>
+
+<ul>
+<BOUCLE_sous(RUBRIQUES){branche}{exclus}>
+<li><a href="#URL_RUBRIQUE">#TITRE</a></li>
+</BOUCLE_sous>
+</ul>
+</B_sous>
+
+<hr style="clear:both"/>
+
+
+
+<//B_recherche>
+
+
+</div>[(#REM) /page]
+
+<INCLURE{fond=gribouille/inc-pied}{id_rubrique}{url=#URL_RUBRIQUE}>
+
+</body>
+</html>
+</BOUCLE_r>

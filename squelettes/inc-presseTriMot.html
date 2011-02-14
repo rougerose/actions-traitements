@@ -1,0 +1,26 @@
+#CACHE{3*24*3600}
+<form action="#SELF" method="get" accept-charset="utf-8" class="tri">
+    <input type="hidden" name="rubrique" value="#ID_RUBRIQUE">
+    <label for="mot">Par mot-cl&eacute;</label>
+    <select name="mot" id="mot" onchange="this.parentNode.submit();">
+        <option value="">S&eacute;lectionnez...</option>
+        <BOUCLE_tri_mots(MOTS){par titre}>
+        <BOUCLE_mots_breves(BREVES){id_mot}{id_secteur}>
+        <BOUCLE_mots_articles(ARTICLES){id_mot}{id_secteur}{doublons}>
+        <BOUCLE_mot1(MOTS){id_mot}{id_article}>
+        [<option value="(#ID_MOT|unique)">[(#TITRE|couper{20})]</option>]
+        </BOUCLE_mot1>
+        </BOUCLE_mots_articles>
+        <BOUCLE_mot2(MOTS){id_mot}{id_breve}>
+        [<option value="(#ID_MOT|unique)">[(#TITRE|couper{20})]</option>]
+        </BOUCLE_mot2>
+        </BOUCLE_mots_breves>
+        <BOUCLE_mots_articles_restants(ARTICLES){id_mot}{id_secteur}{doublons}>
+        <BOUCLE_mot3(MOTS){id_mot}{id_article}>
+        [<option value="(#ID_MOT|unique)">[(#TITRE|couper{20})]</option>]
+        </BOUCLE_mot3>
+        </BOUCLE_mots_articles_restants>
+        </BOUCLE_tri_mots>
+    </select>
+    <input type="submit" value="&rarr;">
+</form>

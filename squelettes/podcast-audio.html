@@ -1,0 +1,38 @@
+#CACHE{3600*24}[(#HTTP_HEADER{Content-type: text/xml[; charset=(#CHARSET)]})]<?xml version="1.0" encoding="#CHARSET"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0" xml:lang="#LANG">
+<channel><BOUCLE_rubrique_podcast(RUBRIQUES){id_rubrique=1016}>
+<title>[(#NOM_SITE_SPIP)] / Les podcasts audio d'Actions-Traitements</title>
+<link>[(#URL_RUBRIQUE|url_absolue)]</link>
+<language>#LANG</language>
+<copyright>Actions-Traitements</copyright>
+<itunes:subtitle>Les podcasts audio</itunes:subtitle>
+<itunes:author>Actions-Traitements</itunes:author>[
+<itunes:summary>(#TEXTE|supprimer_tags|texte_backend)</itunes:summary>][
+<description>(#TEXTE|supprimer_tags|texte_backend)</description>]
+<itunes:owner>
+<itunes:name>Actions-Traitements</itunes:name>[
+<itunes:email>(#EMAIL_WEBMASTER)</itunes:email>]
+</itunes:owner>[
+<itunes:image href="(#LOGO_RUBRIQUE||image_reduire{300,0}|extraire_attribut{src}|url_absolue)" />]
+<itunes:explicit>no</itunes:explicit>
+<itunes:category text="Government &amp; Organizations">
+<itunes:category text="Non-Profit"/>
+</itunes:category>
+<itunes:category text="Health"/>
+
+<BOUCLE_item_audio(ARTICLES){id_rubrique}{!par date}{id_mot=1583}>
+<BOUCLE_fichiers(DOCUMENTS){id_article}{extension==mp3|m4a}{vu=oui}>
+<item>
+<title>[(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT}|texte_backend)]</title>
+<itunes:author>Actions-Traitements</itunes:author>[
+<itunes:subtitle>(#SOUSTITRE|texte_backend)</itunes:subtitle>][
+<itunes:summary>(#DESCRIPTIF|supprimer_tags|texte_backend)</itunes:summary>][
+<enclosure url="(#URL_DOCUMENT|url_absolue|unique)"[ length="(#TAILLE)"][ type="(#MIME_TYPE)"] />][
+<guid>(#URL_DOCUMENT|url_absolue)</guid>][
+<pubDate>(#DATE|date_822)</pubDate>][
+(#REM)<itunes:duration>7:04</itunes:duration>]<B_mots>
+<itunes:keywords><BOUCLE_mots(MOTS){id_article}{id_mot!=1583}{par titre}{", "}>[(#TITRE|supprimer_numero|texte_backend)]</BOUCLE_mots></itunes:keywords></B_mots>
+</item>
+</BOUCLE_fichiers></BOUCLE_item_audio></BOUCLE_rubrique_podcast>
+</channel>
+</rss>

@@ -1,0 +1,39 @@
+#CACHE{86400}
+[(#REM)
+	Entete standard de toutes les pages ; les elements specifiques
+	(title, description) figurent dans le squelette article.html
+]
+[(#REM) Preciser le charset ]
+<meta http-equiv="Content-Type" content="text/html; charset=#CHARSET" />
+
+[(#REM) Fierement fabrique avec SPIP ]
+<meta name="generator" content="SPIP[ (#SPIP_VERSION)]" />
+
+[(#REM) Lien vers l'icone destinee a la barre de bookmarks pour IE ]
+[<link rel="shortcut icon" type="image/x-icon" href="(#CHEMIN{favicon.ico})" />]
+
+[(#REM) Lien vers l'icone destinee a la barre de bookmarks méthode standard ]
+[<link rel="icon" type="image/png" href="(#CHEMIN{favicon.png})" />]
+
+[(#REM) Lien vers le flux RSS du site ]
+<link rel="alternate" type="application/rss+xml" title="<:syndiquer_site:>" href="#URL_PAGE{backend}" />
+<link rel="alternate" type="application/rss+xml" title="Podcasts audio" href="#URL_PAGE{podcast-audio}" />
+<link rel="alternate" type="application/rss+xml" title="Podcasts video" href="#URL_PAGE{podcast-video}" />
+<link rel="stylesheet" href="#CHEMIN{css/commun-ecran.css}" type="text/css" media="screen" charset="#CHARSET" />
+<link rel="stylesheet" href="#CHEMIN{css/spip-ecran.css}" type="text/css" media="screen" charset="#CHARSET" />
+<!-- <link rel="stylesheet" href="#CHEMIN{js/thickbox/thickbox.css}" type="text/css" media="screen" charset="#CHARSET" /> -->
+<link rel="stylesheet" href="#CHEMIN{css/commun-impression.css}" type="text/css" media="print" title="styles impression" charset="#CHARSET" />
+
+
+<!--[if lte IE 6]><link rel="stylesheet" href="#CHEMIN{css/ie6.css}" type="text/css" media="screen" title="styles ecran" charset="#CHARSET" /><![endif]-->
+<!--[if IE]><link rel="stylesheet" href="#CHEMIN{css/ie.css}" type="text/css" media="screen" title="styles ecran" charset="#CHARSET" /><![endif]-->
+
+
+[(#REM) Balise permettant aux plugins d'inserer des appels javascript ou css ]
+#INSERT_HEAD
+
+[(#REM) scripts spécifiques au site ]
+<script src="[(#CHEMIN{js/jquery.selectboxes.min.js})]" type="text/javascript"></script>
+<script src="[(#CHEMIN{js/menu_superfish.js})]" type="text/javascript"></script>
+<!-- <script src="[(#CHEMIN{js/thickbox/thickbox.js})]" type="text/javascript"></script> -->
+<script src="[(#CHEMIN{js/configurations.js})]" type="text/javascript"></script>

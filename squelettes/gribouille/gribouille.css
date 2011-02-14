@@ -1,0 +1,138 @@
+/*
+	Gribouille CSS based on the original wakka.css
+	
+	version: 0.1
+	date: 2004.04.28
+	design: © erational ART erational.org
+	licence: GNU/GPL
+*/
+
+/* main tags*/
+body {
+	font-family: Arial, Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif; 
+	font-size: 90%;
+	background-color: #eee;
+	color: #000;
+	margin: 15px;
+	margin-top: 70px;
+	padding: 0;
+	background-image: url(gribouille-petit.png);
+	background-position: top right;
+	background-repeat: no-repeat;
+}
+
+form {
+	margin: 3px 10px;
+}
+
+h1, h2, h3, h4, h5, h6 { 
+	margin:  0; 
+	padding: 0; 
+}
+
+a {
+	 color: #FF6600;
+}
+ul,ol { 
+	margin-top: 0; 
+	margin-bottom: 0; 
+	padding-top: 0; 
+	padding-bottom: 0; 
+}
+
+form { margin: 0; padding: 0; }
+tt { 
+	color: #009; 
+}
+hr { 
+	color: #fff;
+	border-top: 1px solid #999;
+}
+
+.wiki_name {
+	display:none;
+}
+
+.page_name {
+	margin: 0 15px; 
+	padding: 0 5px 5px 5px;	
+}
+.page_name a:hover {
+    text-decoration: none;
+}
+
+.header { 
+	margin: 0 15px;
+	padding: 0 0 5px 3px;
+}
+.page { 
+	background-color: #fff; 
+	margin: 0 15px; 
+	border: 1px solid #aaa; 
+	min-height: 300px;
+}
+
+.footer { 
+	background-color: #ddd;
+	margin: 0 15px;
+	padding: 5px 10px; 
+	border: 1px solid #aaa;; 
+}
+
+/* spip */
+textarea.spip_cadre {
+	width: 98%; /* solve IE Bug */
+}
+
+.notes {
+	font-size: 80%;
+}
+
+/* not in used yet */
+.copyright { font-size: 11px; color: #AAAAAA; text-align: right; }
+.copyright a { color: #AAAAAA; }
+
+.hr_clear { clear: both; visibility: hidden; }
+
+
+
+/*
+ * Comparaison d articles
+ */
+
+.diff-para-deplace {
+	background: #e8e8ff;
+}
+.diff-para-ajoute {
+	background: #d0ffc0;
+	color: #000;
+}
+.diff-para-supprime {
+	background: #ffd0c0;
+	color: #904040;
+	text-decoration: line-through;
+}
+.diff-deplace {
+	background: #e8e8ff;
+}
+.diff-ajoute {
+	background: #d0ffc0;
+}
+.diff-supprime {
+	background: #ffd0c0;
+	color: #802020;
+	text-decoration: line-through;
+}
+.diff-para-deplace .diff-ajoute {
+	border: 1px solid #808080;
+	background: #b8ffb8;
+}
+.diff-para-deplace .diff-supprime {
+	border: 1px solid #808080;
+	background: #ffb8b8;
+}
+.diff-para-deplace .diff-deplace {
+	border: 1px solid #808080;
+	background: #b8b8ff;
+}
+

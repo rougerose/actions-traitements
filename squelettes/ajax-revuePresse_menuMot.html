@@ -1,0 +1,25 @@
+#CACHE{30*24*3600}
+#HTTP_HEADER{Content-Type: text/html}
+{
+    "" : "Sélectionnez..."
+    <BOUCLE_tri_mots(MOTS){par titre}>
+    <BOUCLE_mots_breves(BREVES){id_mot}{id_secteur=1022}{0,1}>
+    <BOUCLE_mots_articles(ARTICLES){id_mot}{id_secteur=1022}{doublons}{0,1}>
+    <BOUCLE_mot1(MOTS){id_mot}{id_article}>
+    [,
+    "(#ID_MOT|unique)" : ["(#TITRE|textebrut|couper{15})"]]
+    </BOUCLE_mot1>
+    </BOUCLE_mots_articles>
+    <BOUCLE_mot2(MOTS){id_mot}{id_breve}>
+    [,
+    "(#ID_MOT|unique)" : ["(#TITRE|textebrut|couper{15})"]]
+    </BOUCLE_mot2>
+    </BOUCLE_mots_breves>
+    <BOUCLE_mots_articles_restants(ARTICLES){id_mot}{id_secteur=1022}{doublons}{0,1}>
+    <BOUCLE_mot3(MOTS){id_mot}{id_article}>
+    [,
+    "(#ID_MOT|unique)" : ["(#TITRE|textebrut|couper{15})"]]
+    </BOUCLE_mot3>
+    </BOUCLE_mots_articles_restants>
+    </BOUCLE_tri_mots>
+}

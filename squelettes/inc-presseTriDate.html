@@ -1,0 +1,19 @@
+#CACHE{30*24*3600}
+<form action="spip.php" method="get" accept-charset="utf-8" class="tri">
+    <input type="hidden" name="rubrique" value="#ID_RUBRIQUE">
+    <label for="date">Par date</label>
+    <select name="date" id="date" onchange="this.parentNode.submit();">
+        <option value="">S&eacute;lectionnez...</option>
+        [(#REM) sélection des articles et des brèves http://www.spip-contrib.net/Melanger-et-trier-des-elements ]
+        <BOUCLE_date_breves(BREVES){id_secteur}{par date}{inverse}>
+        <BOUCLE_date_articles(ARTICLES){id_secteur}{par date}{inverse}{date>#DATE}{doublons}>
+        [<option value="(#DATE|annee|unique)">[(#DATE|annee)]</option>]
+        </BOUCLE_date_articles>
+        [<option value="(#DATE|annee|unique)">[(#DATE|annee)]</option>]
+        </BOUCLE_date_breves>
+        <BOUCLE_date_articles_restants(ARTICLES){id_secteur}{par date}{inverse}{doublons}>
+        [<option value="(#DATE|annee|unique)">[(#DATE|annee)]</option>]
+        </BOUCLE_date_articles_restants>
+    </select>
+    <input type="submit" value="&rarr;">
+</form>

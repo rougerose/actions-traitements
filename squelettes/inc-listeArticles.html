@@ -1,0 +1,17 @@
+#CACHE{24*3600}
+<B_liste_art>
+#ANCRE_PAGINATION
+<BOUCLE_liste_art(ARTICLES){id_rubrique}{par num titre, titre}{pagination}>
+<div class="entree une clearfix">
+  [<p class="surtitre">(#SURTITRE)</p>]
+  <h2><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></h2>
+  [<p class="soustitre">(#SOUSTITRE)</p>]
+  <p class="intro">[(#LOGO_ARTICLE||image_reduire{70,0}|inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]})][(#DESCRIPTIF)]<a href="#URL_ARTICLE" class="suite">>&nbsp;Lire la suite</a></p>
+  <p class="infosPlus">publi&eacute; le [(#DATE|affdate{d/m/Y})] <B_auteurs_un1> &bull; <:par_auteur:> <BOUCLE_auteurs_un1(AUTEURS){id_article}{", "}>#NOM</BOUCLE_auteurs_un1></B_auteurs_un1></p>
+</div>
+</BOUCLE_liste_art>
+[<div class="pagination">
+    (#PAGINATION{page_precedent_suivant})
+    <p class="infoCompteur">[(#TOTAL_BOUCLE) [(#TOTAL_BOUCLE|>{1}|?{'articles affich&eacute;s','article affich&eacute;'})] sur ][(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'disponibles','disponible'})].] [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi) [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi|>{1}|?{'pages','page'})].]</p>
+</div>]
+</B_liste_art>

@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+#CACHE{0*3600}
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG">
+<head>
+    <title>[(#TITRE|supprimer_numero|supprimer_tags|attribut_html) :: ][(#NOM_SITE_SPIP|supprimer_tags|attribut_html)]</title>
+    [<meta name="description" content="(#INTRODUCTION|couper{150}|supprimer_tags|attribut_html)" />]
+    [(#REM) Lien vers le flux RSS de la rubrique ]
+    <link rel="alternate" type="application/rss+xml" title="<:syndiquer_rubrique:>" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
+    <INCLURE{fond=inc-head}>
+    <link rel="stylesheet" href="#CHEMIN{js/jquery_pagination/pagination.css}" type="text/css" media="screen" title="styles pagination jquery" charset="#CHARSET" />
+</head>
+<body>
+  <div id="conteneur">
+    <div id="entete">
+      <INCLURE{fond=inc-logo}>
+      <INCLURE{fond=inc-menuPrincipal}{id_rubrique}>
+    </div><!-- fin entete -->
+    <INCLURE{fond=inc-filArianeRubrique}{id_rubrique}>
+    <div id="contenu" class="clearfix">
+      <div id="principal">
+        [(#REM) Exclusion des articles, breves et sites ayant le mot clé "exclu" ou "exclu_actualites"]
+        <BOUCLE_exlusion_rubriques(RUBRIQUES){titre_mot==^exclu}{doublons}></BOUCLE_exlusion_rubriques>
+        
+        <div id="plug-pages">
+            
+        </div>
+        <BOUCLE_liste_art(ARTICLES){0,100}{!par date}{doublons}>
+        <div class="entree une clearfix">
+          [<p class="surtitre">(#SURTITRE)</p>]
+          <h2><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></h2>
+          [<p class="soustitre">(#SOUSTITRE)</p>]
+          <p class="intro">[(#LOGO_ARTICLE||image_reduire{70,0}|inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]})][(#DESCRIPTIF)]<a href="#URL_ARTICLE" class="suite">>&nbsp;Lire la suite</a></p>
+          <p class="infosPlus">publi&eacute; le [(#DATE|affdate{d/m/Y})] <B_auteurs_un1> &bull; <:par_auteur:> <BOUCLE_auteurs_un1(AUTEURS){id_article}{", "}>#NOM</BOUCLE_auteurs_un1></B_auteurs_un1></p>
+        </div>
+        </BOUCLE_liste_art>
+        
+        
+        
+        
+        
+      </div> <!-- fin principal -->
+      <hr class="invisible" />
+      <div id="secondaire">
+        #FORMULAIRE_RECHERCHE
+        
+        
+        <div class="boite">
+          <h2>&Agrave; propos</h2>
+          [(#DESCRIPTIF_SITE_SPIP)]
+        </div>
+        
+        
+        <!-- <p><a href="spip.php?page=groupemot">Index des mots-clés</a></p> -->
+        
+      </div> <!-- fin secondaire -->
+    </div> <!-- fin contenu -->
+    <hr class="invisible" />
+    <INCLURE{fond=inc-piedPage}>
+  </div> <!-- fin conteneur -->
+</body>
+</html>
+

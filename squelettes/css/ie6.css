@@ -1,0 +1,18 @@
+/* Styles spécifiques à IE 6 et versions précédentes */
+
+#logo {
+	padding-bottom: 0;
+}
+
+#raccourcis {
+	float: left;
+	width: 760px;
+}
+
+#menu li {
+	background-image: url(../img/menuPrincipal-gauche.gif);
+}
+
+#menu li a {
+	background-image: url(../img/menuPrincipal-droite.gif);
+}

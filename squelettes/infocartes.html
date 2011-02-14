@@ -1,0 +1,15 @@
+#CACHE{24*3600}
+<div id="infocarte" class="boite">
+  <h2>Info cartes</h2>
+  <BOUCLE_infocartealaune(ARTICLES){lang}{id_rubrique=1001}{par hasard}{0,1}>
+  <p><a href="#URL_ARTICLE" title="[(#TITRE|supprimer_numero)]">#LOGO_ARTICLE</a><br />
+  </BOUCLE_infocartealaune>
+  <BOUCLE_plus(ARTICLES){id_article=4}>
+  <a href="#URL_ARTICLE">Consulter toutes nos InfoCartes</a></p>
+  </BOUCLE_plus>
+</div>
+<div id="reglette" class="boite">
+  <BOUCLE_reglette(ARTICLES){id_article=1425}>
+  <p><a href="#URL_ARTICLE" title="Utilisez la r&eacute;glette en ligne"><img src="IMG/png/pubreglette.png"></a></p>
+  </BOUCLE_reglette>
+</div>

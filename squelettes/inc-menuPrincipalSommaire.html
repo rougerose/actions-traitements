@@ -1,0 +1,21 @@
+#CACHE{24*3600}
+
+<div id="menu">
+  <ul>
+    <li class="on"><a href="#URL_SITE_SPIP">Accueil</a></li>
+    <BOUCLE_menuPrincipal(RUBRIQUES){racine}{par num titre, titre}{doublons menu}>
+    <li[ class="(#EXPOSE)"]><a href="#URL_RUBRIQUE"><B_titreCourt><BOUCLE_titreCourt(RUBRIQUES){id_rubrique}{titre_mot=titre court 1 mot}>[(#TITRE|supprimer_numero|titreCourtUnMot)]</BOUCLE_titreCourt></B_titreCourt>[(#TITRE|supprimer_numero)]<//B_titreCourt></a>
+    <B_sousrubriques>[(#REM) on ne recupere que le niveau 2 des rubriques ]
+    <ul>
+      <BOUCLE_sousrubriques(RUBRIQUES){id_parent}{par num titre, titre}{doublons menu}>
+      <li><a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a></li>
+      </BOUCLE_sousrubriques>
+      <BOUCLE_articles_menu(ARTICLES){id_secteur}{par num titre, titre}{titre_mot=menu principal}>[(#REM) on recupere les articles de la rubrique designes pour apparaitre dans le menu principal ]
+      <li><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></li>
+      </BOUCLE_articles_menu>
+    </ul>
+    </B_sousrubriques>
+    </li>
+    </BOUCLE_menuPrincipal>
+  </ul>
+</div>

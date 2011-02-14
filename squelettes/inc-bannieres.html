@@ -1,0 +1,4 @@
+[(#SET{id,[(#CONFIG{bannieres/[(#ENV{position})]/choixImage})]})]
+<BOUCLE_banniere(DOCUMENTS){id_document=#GET{id}}{tout}>
+  <a href="[(#CONFIG{bannieres/[(#ENV{position})]/url})]">[<img src="(#FICHIER)" [alt="(#TITRE|supprimer_numero|sinon{image #ID_DOCUMENT})"]>]</a>
+</BOUCLE_banniere>

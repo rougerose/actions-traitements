@@ -1,0 +1,29 @@
+#CACHE{24*3600}
+<div id="menuSecondaire" class="boite">
+    #SET{courant, #ENV{id_rubrique}}
+    <BOUCLE_hierarchie_menu_secondaire(HIERARCHIE){id_rubrique}{0,1}{doublons menuSecondaire}>
+    <h2>[(#TITRE|supprimer_numero)]</h2>
+    <B_niveau2>
+    <ul id="hierarchie">
+        <BOUCLE_niveau2(RUBRIQUES){id_parent}{par num titre, titre}{doublons menuSecondaire}>
+        <li class="[(#GET{courant}|=={#ID_RUBRIQUE}|?{'on'})] niveau2"><a href="#URL_RUBRIQUE" class="niveau[ (#EXPOSE)]">[(#TITRE|supprimer_numero)]</a>
+        <B_niveau3>
+        <ul>
+            <BOUCLE_niveau3(RUBRIQUES){id_parent}{par num titre, titre}{doublons menuSecondaire}>
+            <li[ class="(#GET{courant}|=={#ID_RUBRIQUE}|?{'on'})"]><a href="#URL_RUBRIQUE"[ class="(#EXPOSE)"]>[(#TITRE|supprimer_numero)]</a>
+            <BOUCLE_recursive(BOUCLE_niveau3)></BOUCLE_recursive>
+            </li>
+            </BOUCLE_niveau3>
+        </ul>
+        </B_niveau3>
+        </li>
+        </BOUCLE_niveau2>
+    </ul>
+    </B_niveau2>
+    </BOUCLE_hierarchie_menu_secondaire>
+    
+    <BOUCLE_menu_secondaire(RUBRIQUES){id_rubrique}{doublons menuSecondaire}>
+    <h2[ class="(#EXPOSE)"]>[(#TITRE|supprimer_numero)]</h2>
+    <BOUCLE_niveau_inf(BOUCLE_niveau2)></BOUCLE_niveau_inf>
+    </BOUCLE_menu_secondaire>
+</div>

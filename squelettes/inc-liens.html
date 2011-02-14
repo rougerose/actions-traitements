@@ -1,0 +1,11 @@
+#CACHE{24*3600}
+<B_liens>
+<div class="boite">
+    <h2>Liens utiles</h2>
+    <ul>
+        <BOUCLE_liens(SYNDICATION){id_rubrique}{par num nom_site, nom_site}{id_syndic!=237}{0,10}>
+        <li><a href="#URL_SITE" class="spip_out" title="[(#NOM_SITE|supprimer_numero|supprimer_tags|attribut_html)]">#NOM_SITE</a></li>
+        </BOUCLE_liens>
+    </ul>
+</div>
+</B_liens>

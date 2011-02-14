@@ -1,0 +1,34 @@
+<B_tous_podcast>
+[(#ANCRE_PAGINATION)]
+[<div class="pagination clearfix">
+    (#PAGINATION{page_precedent_suivant})
+    <p class="infoCompteur">[(#TOTAL_BOUCLE) [(#TOTAL_BOUCLE|>{1}|?{'articles affich&eacute;s','article affich&eacute;'})] sur ][(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'disponibles','disponible'})].] [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi) [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi|>{1}|?{'pages','page'})].]</p>
+</div>]
+<BOUCLE_tous_podcast(ARTICLES){id_rubrique}{id_mot?}{!par date}{pagination}>
+<div class="encadre clearfix">
+    <div class="titre">
+        [<p class="surtitre">(#SURTITRE)</p>]
+        <h2>[(#TITRE|supprimer_numero)]</h2>
+        [<p class="soustitre">(#SOUSTITRE)</p>]
+    </div>
+    [<div class="chapo">
+        (#CHAPO)
+    </div>]
+    [<div class="texte">
+            (#TEXTE|image_reduire{520,0})
+    </div>]
+    [<div class="ps">
+        (#PS)
+    </div>]
+    [<div class="notes">
+        <h3>Notes</h3>
+        (#NOTES)
+    </div>]
+    <p class="infosPlus">publi&eacute; le [(#DATE|affdate{d/m/Y})] <B_auteurs_un1> &bull; <:par_auteur:> <BOUCLE_auteurs_un1(AUTEURS){id_article}{", "}>#NOM</BOUCLE_auteurs_un1></B_auteurs_un1> &bull; <a href="[(#URL_ARTICLE|url_absolue)]" rel="bookmark">permalien</a></p>
+</div>
+</BOUCLE_tous_podcast>
+[<div class="pagination clearfix">
+    (#PAGINATION{page_precedent_suivant})
+    <p class="infoCompteur">[(#TOTAL_BOUCLE) [(#TOTAL_BOUCLE|>{1}|?{'articles affich&eacute;s','article affich&eacute;'})] sur ][(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'disponibles','disponible'})].] [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi) [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi|>{1}|?{'pages','page'})].]</p>
+</div>]
+</B_tous_podcast>

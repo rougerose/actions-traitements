@@ -1,0 +1,14 @@
+#CACHE{7*24*3600}
+[(#SET{id,[(#CONFIG{[(#ENV{cfg_rep})]/[(#ENV{rang})]/[(#ENV{element})]})]})]
+
+<BOUCLE_set_article(ARTICLES){id_article=#GET{id}}>
+[(#ENV{element}|=={'article'}|?{' ',''})
+<li[ class="(#ENV{rang}|=={'1'}|?{'firstChild'})"]><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></li>
+]
+</BOUCLE_set_article>
+
+<BOUCLE_set_rubrique(RUBRIQUES){id_rubrique=#GET{id}}>
+[(#ENV{element}|=={'rubrique'}|?{' ',''})
+<li[ class="(#ENV{rang}|=={'1'}|?{'firstChild'})"]><a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a></li>
+]
+</BOUCLE_set_rubrique>

@@ -1,0 +1,14 @@
+#CACHE{24*3600}
+<div class="boite">
+  <h2>Info cartes</h2>
+  <BOUCLE_infocartealaune(ARTICLES){lang}{id_rubrique=1001}{par hasard}{0,2}>
+  <dl class="document">
+    <dt><a href="#URL_ARTICLE" title="[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]">[(#TITRE|supprimer_numero)]</a></dt>
+    [<dd class="icone"><a href="#URL_ARTICLE" title="[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]">(#LOGO_ARTICLE||image_recadre{44,44, left center}|inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]})</a></dd>]
+    [<dd>(#DESCRIPTIF)</dd>]
+  </dl>
+  </BOUCLE_infocartealaune>
+  <BOUCLE_rubrique_produits(RUBRIQUES){id_rubrique=1001}>
+  <p class="liensTous"><a href="#URL_RUBRIQUE">Consulter toutes nos InfoCartes</a></p>
+  </BOUCLE_rubrique_produits>
+</div>

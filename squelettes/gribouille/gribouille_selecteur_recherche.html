@@ -1,0 +1,26 @@
+#HTTP_HEADER{Content-Type: text/xml; charset=#CHARSET}
+<?xml version="1.0"?>
+[(#REM)
+
+	Menu de selection d'une rubrique pour un article
+	La reponse doit etre en xml, elle sera exploitee par iautocompleter.js
+
+]
+
+<ajaxresponse>
+
+[(#REM) Chercher les rubriques correspondant a la requete ]
+<BOUCLE_r(ARTICLES){recherche #ENV{value}} {0,20} {!par points}>
+<item>
+	<text><![CDATA[
+		<BOUCLE_h(HIERARCHIE){n-3,3}{id_article}>[(#TITRE|couper{12})]
+		&gt; </BOUCLE_h>
+		<b>#TITRE</b>]]></text>
+	<value><![CDATA[[(#TITRE|textebrut|couper{100})]]]></value>
+	<id>#ID_ARTICLE</id>
+	<url>#URL_ARTICLE</url>
+</item>
+</BOUCLE_r>
+
+</ajaxresponse>
+

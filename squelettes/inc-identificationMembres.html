@@ -1,0 +1,58 @@
+#CACHE{0}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG">
+<head>
+    <title>[(#TITRE|supprimer_numero|supprimer_tags|attribut_html) :: ][(#NOM_SITE_SPIP|supprimer_tags|attribut_html)]</title>
+    [(#REM) Lien vers le flux RSS de la rubrique ]
+    <link rel="alternate" type="application/rss+xml" title="<:syndiquer_rubrique:>" href="[(#URL_PAGE{backend})]" />
+    <INCLURE{fond=inc-head}>
+</head>
+<body>
+  <div id="conteneur">
+    <div id="entete">
+      <INCLURE{fond=inc-logo}>
+      <INCLURE{fond=inc-menuPrincipal}>
+    </div><!-- fin entete -->
+    <INCLURE{fond=inc-filArianeRubrique}>
+    <div id="contenu" class="clearfix">
+      <div id="principal">
+        <div id="descriptifRubrique">
+            <h1>Cette page est r&eacute;serv&eacute;e aux membres</h1>
+            <p>Veuillez vous identifier au moyen du formulaire ci-dessous</p>
+            [(#FORMULAIRE_LOGIN{spip.php?rubrique#ID_RUBRIQUE&var_mode=calcul})]
+        </div>
+
+      </div> <!-- fin principal -->
+      <hr class="invisible" />
+      <div id="secondaire">
+        <INCLURE{fond=inc-id}>
+        #FORMULAIRE_RECHERCHE
+        
+        <INCLURE{fond=inc-menuSecondaire}{id_rubrique}>
+
+        [(#ID_RUBRIQUE|=={1019}|?{'',' '})
+        <INCLURE{fond=inc-reunionQualiteVie}>]
+        
+        <INCLURE{fond=inc-infoCartes}{id_rubrique}>
+        
+        [(#REM) on affiche pas le dernier numéro dans la rubrique Info Traitements ]
+        [(#ID_RUBRIQUE|=={1004}|?{'',' '})
+        <INCLURE{fond=inc-infoTraitementsCouv}{id_rubrique}>
+        ]
+
+        <INCLURE{fond=inc-raccourcis}>
+
+        <INCLURE{fond=inc-agenda}>
+        
+        <INCLURE{fond=inc-liens}{id_rubrique}>
+        
+      </div> <!-- fin secondaire -->
+    </div> <!-- fin contenu -->
+    <hr class="invisible" />
+    <INCLURE{fond=inc-piedPage}>
+  </div> <!-- fin conteneur -->
+</body>
+</html>
+</BOUCLE_p>

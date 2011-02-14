@@ -1,0 +1,46 @@
+<B_p><BOUCLE_p(RUBRIQUES){id_rubrique}>[(#REM) pour la rubrique Membres avec inclusion de squelettes spécifiques selon les sous-rubriques ]
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG">
+<head>
+    <title>[(#TITRE|supprimer_numero|supprimer_tags|attribut_html) :: ][(#NOM_SITE_SPIP|supprimer_tags|attribut_html)]</title>
+    [<meta name="description" content="(#INTRODUCTION|couper{150}|supprimer_tags|attribut_html)" />]
+    [(#REM) Lien vers le flux RSS de la rubrique ]
+    <link rel="alternate" type="application/rss+xml" title="<:syndiquer_rubrique:>" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
+    <INCLURE{fond=inc-head}>
+</head>
+<body>
+  <div id="conteneur">
+    <div id="entete">
+      <INCLURE{fond=inc-logo}{id_rubrique}>
+      <INCLURE{fond=inc-menuPrincipal}{id_rubrique}>
+    </div><!-- fin entete -->
+    <INCLURE{fond=inc-filArianeRubrique}{id_rubrique}>
+
+    [(#REM) corps de page pour la rubrique Membres page d'accueil ]
+    [(#ENV{id_rubrique}|=={'1019'}|?{' '})
+    <INCLURE{fond=inc-accueil-membres}{id_rubrique}>
+    ]
+
+    [(#REM) corps de page pour la rubrique Agenda ]
+    [(#ENV{id_rubrique}|=={'1020'}|?{' '})
+    <INCLURE{fond=inc-rubrique-agenda}{id_rubrique}{date=#ENV{date}}{periode=#ENV{periode}}>
+    ]
+
+    [(#REM) corps de page pour toutes les autres rubriques ]
+    [(#ENV{id_rubrique}|!={'1019'}|?{' '})[(#ENV{id_rubrique}|!={'1020'}|?{' '})
+    <INCLURE{fond=inc-rubriques-membres}{id_rubrique}>
+    ]]
+
+    <hr class="invisible" />
+    <INCLURE{fond=inc-piedPage}>
+  </div> <!-- fin conteneur -->
+</body>
+</html>
+</BOUCLE_p></B_p>
+[(#ID_RUBRIQUE|AccesRestreint_rubrique_restreinte|?{' ',''})
+<INCLURE{fond=inc-identificationMembres}{id_rubrique}>] 
+[(#ID_RUBRIQUE|AccesRestreint_rubrique_restreinte|?{'',' '})
+<INCLURE{fond=404}>]
+<//B_p>

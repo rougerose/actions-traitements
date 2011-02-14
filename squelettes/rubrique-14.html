@@ -1,0 +1,145 @@
+#CACHE{24*3600}
+<BOUCLE_p(RUBRIQUES){id_rubrique}>[(#REM) rubrique agenda]
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG">
+<head>
+    <title>[(#TITRE|supprimer_numero|supprimer_tags|attribut_html) :: ][(#NOM_SITE_SPIP|supprimer_tags|attribut_html)]</title>
+    [<meta name="description" content="(#INTRODUCTION|couper{150}|supprimer_tags|attribut_html)" />]
+    [(#REM) Lien vers le flux RSS de la rubrique ]
+    <link rel="alternate" type="application/rss+xml" title="<:syndiquer_rubrique:>" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
+    <INCLURE{fond=inc-head}>
+</head>
+<body>
+  <div id="conteneur">
+    <div id="entete">
+      <INCLURE{fond=inc-logo}{id_rubrique}>
+      <INCLURE{fond=inc-menuPrincipal}{id_rubrique}>
+    </div><!-- fin entete -->
+    <INCLURE{fond=inc-filArianeRubrique}{id_rubrique}>
+    <div id="contenu" class="clearfix">
+      <div id="principal">
+
+        <div id="descriptifRubrique">
+            <h1>
+                [(#TITRE|supprimer_numero)]
+                [(#ENV{periode}|=={'jour'}|?{' '}) [ | (#ENV{date}|affdate)]]
+                [(#ENV{periode}|!={'jour'}|?{' '})[ | (#ENV{date}|affdate_mois_annee)]]
+            </h1>
+            [(#LOGO_RUBRIQUE||image_reduire{100,0}|inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]})]
+            [(#TEXTE|image_reduire{500,0})]
+        </div>
+
+        [(#ENV{periode}|=={'jour'}|?{' '})
+        <INCLURE{fond=inc-rubrique-agenda-liste-even-jour}{env}>
+        ]
+        [(#REM) dans l'hypothèse où l'url contient periode=mois ou rien du tout -- si on passe par la navigation principale -- )]
+        [(#ENV{periode}|!={'jour'}|?{' '})
+        <INCLURE{fond=inc-rubrique-agenda-liste-even-mois}{env}>
+        ]
+        
+        <div id="agendaMoisPrecedentSuivant">
+            <p>
+                [<a href="(#SELF|parametre_url{date,[(#ENV{date}|Agenda_moisdecal{-1,'Y-m'})]}|parametre_url{periode,mois})" title="[(#ENV{date}|Agenda_moisdecal{-1,'Y-m'}|affdate_mois_annee)]">&#x2190; [(#ENV{date}|Agenda_moisdecal{-1,'Y-m'}|affdate_mois_annee)]</a>] |
+                [(#ENV{periode}|=={'jour'}|?{' '})
+                [<a href="(#SELF|parametre_url{date,[(#ENV{date}|affdate{'Y-m'})]}|parametre_url{periode,mois})">[(#ENV{date}|affdate_mois_annee)]</a>] 
+                | 
+                ]
+                [<a href="(#SELF|parametre_url{date,[(#ENV{date}|Agenda_moisdecal{1,'Y-m'})]}|parametre_url{periode,mois})" title="[(#ENV{date}|Agenda_moisdecal{1,'Y-m'}|affdate_mois_annee)]">[(#ENV{date}|Agenda_moisdecal{1,'Y-m'}|affdate_mois_annee)] &#x2192;</a>]
+            </p>
+        </div>
+        
+        
+        <B_sousrubriques>
+        <div id="sousrubriques" class="clearfix">
+            <h2>Sous-rubriques</h2>
+            <BOUCLE_sousrubriques(RUBRIQUES){id_parent}{par num titre, titre}>
+            <dl class="[demiColonne (#COMPTEUR_BOUCLE|alterner{impaire,paire})]">
+                <dt>[<a href="#URL_RUBRIQUE">(#TITRE|supprimer_numero)</a>]</dt>
+                [<dd class="icone">(#LOGO_RUBRIQUE||image_reduire{70,0}|inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]})</dd>]
+                <dd class="descriptif">[(#DESCRIPTIF|PtoBR)] <a href="#URL_RUBRIQUE" class="suite">>&nbsp;Suite</a></dd>
+            </dl>
+            </BOUCLE_sousrubriques>
+        </div>
+        </B_sousrubriques>
+        
+        
+        <B_breves>
+        <div class="encadre clearfix">
+          <h2>En bref</h2>
+          #ANCRE_PAGINATION
+          <dl>
+            <BOUCLE_breves(BREVES){id_rubrique}{lang}{!par date}{doublons}{pagination 5}>
+            <dt><a href="#URL_BREVE" title="[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]">[(#TITRE|supprimer_numero)]</a>[ &bull; <span class="infosPlus">(#DATE|affdate{d/m/Y})</span>]</dt>
+            </BOUCLE_breves>
+          </dl>
+          [<div class="pagination">
+            (#PAGINATION{page_precedent_suivant})
+            <p class="infoCompteur">[(#TOTAL_BOUCLE) [(#TOTAL_BOUCLE|>{1}|?{'br&egrave;ves affich&eacute;es','br&egrave;ves affich&eacute;e'})] sur ][(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'disponibles','disponible'})].] [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi) [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi|>{1}|?{'pages','page'})].]</p>
+          </div>]
+        </div>
+        </B_breves>
+        
+        
+        
+      </div> <!-- fin principal -->
+      <hr class="invisible" />
+      <div id="secondaire">
+        #FORMULAIRE_RECHERCHE
+        
+        <INCLURE{fond=inc-menuSecondaire}{id_rubrique}>
+        
+        <div id="calendrier" class="boite">
+            #CALENDRIER_MINI{#ENV{date},'date',#SELF}
+        </div>
+        
+        <B_mots_rubrique>
+        <div class="boite">
+            <h2>Mots-cl&eacute;s</h2>
+            <ul>
+                <BOUCLE_mots_rubrique(MOTS){id_rubrique}{type!==modalite}{par num titre, titre}>
+                <li><a href="#URL_MOT">[(#TITRE|supprimer_numero)]</a></li>
+                </BOUCLE_mots_rubrique>
+            </ul>
+        </div>
+        </B_mots_rubrique>
+        
+        <B_doc_rubrique>
+        <div id="documents" class="boite">
+          <h2>Documents</h2>
+          <BOUCLE_doc_rubrique(DOCUMENTS){id_rubrique!=1004}{id_rubrique}{par num titre, titre}{doublons}>
+          <dl class="document">
+              [<dt><a href="#URL_DOCUMENT"[ type="(#MIME_TYPE)"][ title="(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT}|supprimer_tags|attribut_html)[ &bull; (#TYPE_DOCUMENT)][ &bull; (#TAILLE|taille_en_octets)]"]>(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT})</a></dt>]
+              [<dd class="icone"><a href="#URL_DOCUMENT" type="#MIME_TYPE"[ title="(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT}|supprimer_tags|attribut_html)[ &bull; (#TYPE_DOCUMENT)][ &bull; (#TAILLE|taille_en_octets)]"]>(#LOGO_DOCUMENT||image_reduire{44,0}|inserer_attribut{alt,[(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT}|supprimer_tags|attribut_html)] - #TYPE_DOCUMENT - [(#TAILLE|taille_en_octets)]})</a></dd>]
+              <dd>[(#DESCRIPTIF)](#ID_DOCUMENT [(#TYPE_DOCUMENT)][ &bull; (#TAILLE|taille_en_octets)])</dd>
+          </dl>
+          </BOUCLE_doc_rubrique>
+        </div>
+        </B_doc_rubrique>
+        
+        <INCLURE{fond=inc-reunionQualiteVie}>
+        
+        
+        <!-- <p><a href="spip.php?page=groupemot">Index des mots-clés</a></p> -->
+        
+        <INCLURE{fond=inc-infoCartes}{id_rubrique}>
+        
+        [(#REM) on affiche pas le dernier numéro dans la rubrique Info Traitements ]
+        [(#ID_RUBRIQUE|=={1004}|?{'',' '})
+        <INCLURE{fond=inc-infoTraitementsCouv}{id_rubrique}>
+        ]
+        
+        <INCLURE{fond=inc-raccourcis}>
+
+        
+        <INCLURE{fond=inc-liens}{id_rubrique}>
+        
+      </div> <!-- fin secondaire -->
+    </div> <!-- fin contenu -->
+    <hr class="invisible" />
+    <INCLURE{fond=inc-piedPage}>
+  </div> <!-- fin conteneur -->
+</body>
+</html>
+</BOUCLE_p>

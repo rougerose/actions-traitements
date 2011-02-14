@@ -1,0 +1,11 @@
+#CACHE{24*3600}
+<div id="rendezvous" class="boite">
+  <h2>Nos rendez-vous</h2>
+  <BOUCLE_evenements(EVENEMENTS){age<0}{statut=publie}{par date}>
+  <dl class="rendezvous">
+      <dt>[(#DATE_DEBUT|affdate)[ - (#DATE_FIN|jour|=={[(#DATE_DEBUT|jour)]}|?{'',[(#DATE_FIN|affdate)]})][(#HORAIRE|=={oui}|?{[ &agrave; (#DATE_DEBUT|heures)]h[(#DATE_DEBUT|minutes)]})] ]</dt>
+      <dd><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></dd>
+      [<dd>(#DESCRIPTIF|PtoBR)</dd>]
+  </dl>
+  </BOUCLE_evenements>
+</div>

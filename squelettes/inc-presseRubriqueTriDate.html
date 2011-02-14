@@ -1,0 +1,45 @@
+#CACHE{24*3600}
+<B_articles>
+#ANCRE_PAGINATION
+<BOUCLE_articles(ARTICLES){id_rubrique}{par date}{inverse}{annee=#ENV{date}}{pagination}>
+<div class="entree une clearfix">
+  [<p class="surtitre">(#SURTITRE)</p>]
+  <h2>
+      <BOUCLE_evenement_article(EVENEMENTS){id_article}>[(#DATE_DEBUT|affdate)[ / (#DATE_FIN|jour|=={[(#DATE_DEBUT|jour)]}|?{'',[(#DATE_FIN|affdate)]})] | ]</BOUCLE_evenement_article>
+      <a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
+  </h2>
+  [<p class="soustitre">(#SOUSTITRE)</p>]
+  <p class="intro">[(#LOGO_ARTICLE||image_reduire{70,0}|inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]})][(#DESCRIPTIF)]<a href="#URL_ARTICLE" class="suite">>&nbsp;Lire la suite</a></p>
+  <p class="infosPlus">publi&eacute; le [(#DATE|affdate{d/m/Y})] <B_auteurs_un1> &bull; <:par_auteur:> <BOUCLE_auteurs_un1(AUTEURS){id_article}{", "}>#NOM</BOUCLE_auteurs_un1></B_auteurs_un1></p>
+</div>
+</BOUCLE_articles>
+[<div class="pagination">
+    (#PAGINATION{page_precedent_suivant})
+    <p class="infoCompteur">[(#TOTAL_BOUCLE) [(#TOTAL_BOUCLE|>{1}|?{'articles affich&eacute;s','article affich&eacute;'})] sur ][(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'disponibles','disponible'})].] [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi) [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi|>{1}|?{'pages','page'})].]</p>
+</div>]
+</B_articles>
+<div class="entree une clearfix">
+    <p class="message">Il n'y a pas d'articles publi&eacute;s en [(#ENV{date}|annee)].</p>
+</div>
+<//B_articles>
+
+<B_breves>
+<div class="encadre clearfix">
+  <h2>En bref</h2>
+  #ANCRE_PAGINATION
+  <dl>
+    <BOUCLE_breves(BREVES){id_rubrique}{lang}{par date}{inverse}{pagination 5}{annee=#ENV{date}}>
+    <dt><a href="#URL_BREVE" title="[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]">[(#TITRE|supprimer_numero)]</a>[ &bull; <span class="infosPlus">(#DATE|affdate{d/m/Y})</span>]</dt>
+    </BOUCLE_breves>
+  </dl>
+  [<div class="pagination">
+    (#PAGINATION{page_precedent_suivant})
+    <p class="infoCompteur">[(#TOTAL_BOUCLE) [(#TOTAL_BOUCLE|>{1}|?{'br&egrave;ves affich&eacute;es','br&egrave;ves affich&eacute;e'})] sur ][(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'disponibles','disponible'})].] [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi) [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi|>{1}|?{'pages','page'})].]</p>
+  </div>]
+</div>
+</B_breves>
+<div class="encadre clearfix">
+    <h2>En bref</h2>
+    <p class="message">Il n'y a pas de br&egrave;ves publi&eacute;s en [(#ENV{date}|annee)].</p>
+</div>
+<//B_breves>

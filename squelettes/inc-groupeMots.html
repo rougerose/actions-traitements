@@ -1,0 +1,23 @@
+#CACHE{24*3600}
+<BOUCLE_exclusion(GROUPES_MOTS){id_groupe IN 18,19,20,21,22,23,24}{doublons}></BOUCLE_exclusion>
+<BOUCLE_mots_du_groupe(MOTS){id_groupe=#ENV{categorie,#ID_GROUPE}}{doublons mots}> </BOUCLE_mots_du_groupe>
+<B_groupes>
+<div id="categoriesGlossaire">
+    <h2>Cat&eacute;gories</h2>
+    <ul id="menuGlossaire">
+        <BOUCLE_groupes(GROUPES_MOTS){par num titre, titre}{doublons}>
+        <li>
+            [<a class="groupeGlossaire[ (#EXPOSE)] ajax" href="#URL_PAGE{glossaire,categorie=#ID_GROUPE}">(#TITRE|supprimer_numero)</a>]
+            
+            <B_mots_groupe>
+            <ul class="motsGroupe">
+            <BOUCLE_mots_groupe(MOTS){id_groupe}{id_groupe=#ENV{categorie,#ID_GROUPE}}{par num titre, titre}{!doublons mots}{unique}>
+            <li class="motsGlossaire"><a href="[(#URL_PAGE{glossaire,categorie=#ID_GROUPE}|parametre_url{id_mot,#ID_MOT})]"[ class="(#EXPOSE)"]>[(#TITRE|supprimer_numero)]</a></li>
+            </BOUCLE_mots_groupe>
+            </ul>
+            </B_mots_groupe>
+        </li>
+        </BOUCLE_groupes>
+    </ul>
+</div>
+</B_groupes>

@@ -1,0 +1,17 @@
+#CACHE{30*24*3600}
+#HTTP_HEADER{Content-Type: text/html}
+{
+    "" : "Sélectionnez..."
+    <BOUCLE_date_breves(BREVES){id_secteur=1022}{par date}{inverse}>
+    <BOUCLE_date_articles(ARTICLES){id_secteur}{par date}{inverse}{date>#DATE}{doublons}>
+    [,
+    "(#DATE|annee|unique)" : "[(#DATE|annee)]"]
+    </BOUCLE_date_articles>
+    [,
+    "(#DATE|annee|unique)" : "[(#DATE|annee)]"]
+    </BOUCLE_date_breves>
+    <BOUCLE_date_articles_restants(ARTICLES){id_secteur}{par date}{inverse}{doublons}>
+    [,
+    "(#DATE|annee|unique)" : "[(#DATE|annee)]"]
+    </BOUCLE_date_articles_restants>
+}

@@ -1,0 +1,147 @@
+#CACHE{24*3600}
+<BOUCLE_p(ARTICLES){id_article}>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG">
+<head>
+    <title>[(#TITRE|supprimer_numero|supprimer_tags|attribut_html) :: ][(#NOM_SITE_SPIP|supprimer_tags|attribut_html)]</title>
+    [<meta name="description" content="(#DESCRIPITF|couper{150}|supprimer_tags|attribut_html)" />]
+    <INCLURE{fond=inc-head}>
+    
+</head>
+<body>
+  <div id="conteneur">
+    <div id="entete">
+      <INCLURE{fond=inc-logo}>
+      <INCLURE{fond=inc-menuPrincipal}{id_rubrique}>
+    </div><!-- fin entete -->
+    <INCLURE{fond=inc-filArianeArticle}{id_rubrique}{id_article}>
+    <div id="contenu" class="clearfix">
+      <div id="principal" class="articles">
+        #DEBUT_SURLIGNE
+        [<p class="surtitre">(#SURTITRE)</p>]
+        <h1>[(#TITRE|supprimer_numero)]</h1>
+        [<p class="soustitre">(#SOUSTITRE)</p>]
+        
+        <p class="infosPlus">[publi&eacute; (#DATE|jour|=={0}?{"le","en"})][ (#DATE|affdate)][ &bull; <:par_auteur:> (#LESAUTEURS)]</p>
+        
+        <div id="contenuArticle">
+            
+            <div class="chapo[ (#LOGO_ARTICLE||?{' ', ''})clearfix]">
+                [(#LOGO_ARTICLE||inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]}|inserer_attribut{class, "logoArticle"})]
+                [(#CHAPO)]
+                [<p class="urlReference"><strong><:voir_en_ligne:></strong> <a href="(#URL_SITE)" class="spip_out"[ title="(#NOM_SITE|sinon{#URL_SITE}|supprimer_numero|supprimer_tags|attribut_html)"]>[(#NOM_SITE|sinon{[(#URL_SITE)]}|supprimer_numero)]</a></p>]
+            </div>
+            
+            <div class="texte">
+                [(#PETITION|?{' '})
+                <div class="ancre">
+                    <div id="ancrePetition" class="formulaire_spip formulaire_signature">
+                        <h2>[<img src="(#CHEMIN{img/icone-petition.png})" width="32" height="32" alt="P&eacute;tition" class="iconePetition">]<a href=#URL_ARTICLE#sp#ID_ARTICLE><:petitions:signez:></a></h2>
+                    </div>
+                    
+                </div>]
+                
+                [<p>(#INTRODUCTION)<a href="#URL_ARTICLE" class="suite">Lire la suite</a></p>]
+                
+                <BOUCLE_compteur_signatures(SIGNATURES){id_article}></BOUCLE_compteur_signatures>
+                [(#TOTAL_BOUCLE|>{0}|?{' '})
+                <h2>Les signataires</h2>
+                [<p>[Le (#ENV{date}|affdate)], (#TOTAL_BOUCLE) [(#TOTAL_BOUCLE|>{1}|?{'personnes ont', 'personne a'})] signé cette pétition.</p>] 
+                ]
+                <//B_compteur_signatures>
+                
+                <B_signatures>
+                <table class="signataires">
+                    <tr><th>Date</th><th>Nom</th><th class="derniere">Profession</th></tr>
+                    <BOUCLE_signatures(SIGNATURES){id_article}{par date}{inverse}>
+                    <tr[ class="(#COMPTEUR_BOUCLE|alterner{'impair','pair'})"]><td>[(#DATE|affdate)]</td><td>[(#NOM)]</td><td class="derniere">[(#PROFESSION)]</td></tr>
+                    </BOUCLE_signatures>
+                </table>
+                </B_signatures>
+            </div>
+            
+            [<div class="notes">
+                <h3>Notes</h3>
+                (#NOTES)
+            </div>]
+            
+            
+        </div>
+        #FIN_SURLIGNE
+      </div> <!-- fin principal -->
+      <hr class="invisible" />
+      <div id="secondaire">
+        #FORMULAIRE_RECHERCHE
+        
+        <div id="menuSecondaire" class="boite">
+            #SET{courant, #ID_RUBRIQUE}
+            <BOUCLE_rub(RUBRIQUES){id_rubrique}>
+            #SET{parent, #ID_PARENT}
+            </BOUCLE_rub>
+            <B_hierarchie_menu_secondaire>
+            <BOUCLE_hierarchie_menu_secondaire(HIERARCHIE){id_article}{0,1}{doublons menuSecondaire}>
+            <h2[ class="(#GET{courant}|=={#ID_RUBRIQUE}|?{'on'})"]>[(#TITRE|supprimer_numero)]</h2>
+            <B_niveau2>
+            <ul id="hierarchie">
+                <BOUCLE_niveau2(RUBRIQUES){id_parent}{par num titre, titre}{doublons menuSecondaire}>
+                <li[ class="(#GET{courant}|=={#ID_RUBRIQUE}|?{'on'})[ (#GET{parent}|=={#ID_RUBRIQUE}|?{'on'})]"]><a href="#URL_RUBRIQUE" class="niveau[ (#GET{courant}|=={#ID_RUBRIQUE}|?{'on',''})][ (#GET{parent}|=={#ID_RUBRIQUE}|?{'on'})]">[(#TITRE|supprimer_numero)]</a>
+                <B_niveau3>
+                <ul>
+                    <BOUCLE_niveau3(RUBRIQUES){id_parent}{par num titre, titre}{doublons menuSecondaire}>
+                    <li[ class="(#GET{courant}|=={#ID_RUBRIQUE}|?{'on'})"]><a href="#URL_RUBRIQUE" class="[ (#GET{courant}|=={#ID_RUBRIQUE}|?{'on'})]">[(#TITRE|supprimer_numero)]</a>
+                    <BOUCLE_recursive(BOUCLE_niveau3)></BOUCLE_recursive>
+                    </li>
+                    </BOUCLE_niveau3>
+                </ul>
+                </B_niveau3>
+                </li>
+                </BOUCLE_niveau2>
+            </ul>
+            </B_niveau2>
+            </BOUCLE_hierarchie_menu_secondaire>
+            </B_hierarchie_menu_secondaire>
+            <BOUCLE_menu_secondaire(RUBRIQUES){id_rubrique}{doublons menuSecondaire}>
+            <h2 class="on">[(#TITRE|supprimer_numero)]</h2>
+            <BOUCLE_niveau_inf(BOUCLE_niveau2)></BOUCLE_niveau_inf>
+            </BOUCLE_menu_secondaire>
+            <//B_hierarchie_menu_secondaire>
+        </div>
+        
+        
+        
+        <BOUCLE_exlusion_mots(MOTS){id_article}{id_groupe=18}{doublons mots}></BOUCLE_exlusion_mots>
+        <B_mots_article>
+        <div class="boite">
+            <h2>Th&egrave;mes &amp; mots-cl&eacute;s</h2>
+            
+            <dl class="mots">
+                <BOUCLE_mots_article(MOTS){id_article}{par id_groupe}{doublons mots}>
+                <BOUCLE_groupe(GROUPES_MOTS){id_groupe}{par titre}{unique}>
+                <dt>[(#TITRE)]</dt>
+                </BOUCLE_groupe>
+                [<dd><a href="#URL_MOT" title="[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]">(#TITRE)</a></dd>]
+                </BOUCLE_mots_article>
+            </dl>
+            
+        </div>
+        </B_mots_article>
+        
+        
+        
+        
+        
+        
+        <!-- <p><a href="spip.php?page=groupemot">Index des mots-clés</a></p> -->
+        
+        <INCLURE {fond=raccourcis}>
+        
+      </div> <!-- fin secondaire -->
+    </div><!-- fin contenu -->
+    <hr class="invisible" />
+    <INCLURE{fond=inc-piedPage}>
+  </div> <!-- fin conteneur -->
+</body>
+</html>
+</BOUCLE_p>

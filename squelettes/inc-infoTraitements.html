@@ -1,0 +1,27 @@
+#CACHE{24*3600}
+<B_infoTraitements>
+<div id="infoTraitements" class="clearfix">
+    <h2>Les derniers numéros d'infoTraitements</h2>
+    #ANCRE_PAGINATION
+    <BOUCLE_infoTraitements(MOTS){type=InfoTraitements}{par num titre, titre}{inverse}{pagination 4}>
+    <dl class="[demiColonne (#COMPTEUR_BOUCLE|alterner{impaire,paire})]">
+        <dt><a href="#URL_MOT" title="[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]">[(#TITRE|supprimer_numero)]</a></dt>
+        [<dd class="icone">(#LOGO_MOT||image_recadre{44,44, left top}|inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]})</dd>]
+        <BOUCLE_documents_infoTraitements(DOCUMENTS){id_rubrique}{descriptif=#ID_MOT}{doublons}>
+        <dd class="telechargement"><a href="#URL_DOCUMENT" type="#MIME_TYPE"[ title="(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT}|supprimer_tags|attribut_html)[ &bull; (#TYPE_DOCUMENT)][ &bull; (#TAILLE|taille_en_octets)]"]>télécharger le numéro (format #TYPE_DOCUMENT[ &bull; (#TAILLE|taille_en_octets)])</a></dd>
+        </BOUCLE_documents_infoTraitements>
+        <BOUCLE_articles_numero(ARTICLES){id_mot}{par num titre, titre}{0,3}{doublons numeroIT}>
+        <dd><a href="#URL_ARTICLE" title="[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]">[(#TITRE|supprimer_numero)]</a></dd>
+        </BOUCLE_articles_numero>
+        <BOUCLE_articles_supp_numero(ARTICLES){id_mot}{par num titre, titre}{0,1}{doublons numeroIT}> </BOUCLE_articles_supp_numero>
+        <dd><a href="#URL_MOT" title="consulter le sommaire complet d'[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]">le sommaire complet</a></dd>
+        </B_articles_supp_numero>
+        
+    </dl>
+    </BOUCLE_infoTraitements>
+    [<div class="pagination">
+        (#PAGINATION{page_precedent_suivant})
+        <p class="infoCompteur">[(#TOTAL_BOUCLE) [(#TOTAL_BOUCLE|>{1}|?{'articles affich&eacute;s','article affich&eacute;'})] sur ][(#GRAND_TOTAL) [(#GRAND_TOTAL|>{1}|?{'disponibles','disponible'})].] [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi) [(#GRAND_TOTAL|div{#TOTAL_BOUCLE}|arrondi|>{1}|?{'pages','page'})].]</p>
+    </div>]
+</div>
+</B_infoTraitements>

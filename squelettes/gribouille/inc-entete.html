@@ -1,0 +1,20 @@
+<BOUCLE_r(RUBRIQUES){id_rubrique}>
+
+
+<form action="#URL_RUBRIQUE" method="get">
+[(#URL_RUBRIQUE|form_hidden)]
+
+<div class="header">
+
+<a href="#URL_SITE_SPIP/">#NOM_SITE_SPIP</a>
+::
+<BOUCLE_h(HIERARCHIE){id_rubrique}{tout}>
+<a href="#URL_RUBRIQUE">#TITRE</a>
+::
+</BOUCLE_h>
+[(#CONFIG{articles_versions}|=={oui}|?{<a href="#URL_RUBRIQUE#revisions">Derniers changements</a>}) :: ]
+Recherche : <input type='text' name='recherche' value='' />
+</div>
+</form>
+
+</BOUCLE_r>

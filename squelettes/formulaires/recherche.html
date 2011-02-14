@@ -1,0 +1,9 @@
+#CACHE{7*24*3600}
+<div class="formulaire" id="recherche">
+<form action="[(#ENV{action})]" method="get">
+	[(#ENV{action}|form_hidden)]
+	[<input type="hidden" name="lang" value="(#ENV{lang})" />]
+	<p><label for="recherche"><:info_rechercher_02:></label>
+	<input type="text" class="forml text" size="10" name="recherche" id="champsRecherche"[ value="(#ENV{recherche})"] accesskey="4" /></p>
+</form>
+</div>

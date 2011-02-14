@@ -1,0 +1,128 @@
+[(#REM) squelette rubrique podcast ]
+<BOUCLE_p(RUBRIQUES){id_rubrique}>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG">
+<head>
+    <title>[(#TITRE|supprimer_numero|supprimer_tags|attribut_html) :: ][(#NOM_SITE_SPIP|supprimer_tags|attribut_html)]</title>
+    [<meta name="description" content="(#INTRODUCTION|couper{150}|supprimer_tags|attribut_html)" />]
+    [(#REM) Lien vers le flux RSS de la rubrique ]
+    <link rel="alternate" type="application/rss+xml" title="<:syndiquer_rubrique:>" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
+    <INCLURE{fond=inc-head}>
+</head>
+<body class="rubrique#ID_RUBRIQUE">
+  <div id="conteneur">
+    <div id="entete">
+      <INCLURE{fond=inc-logo}{id_rubrique}>
+      <INCLURE{fond=inc-menuPrincipal}{id_rubrique}>
+    </div><!-- fin entete -->
+    <INCLURE{fond=inc-filArianeRubrique}{id_rubrique}>
+    <div id="contenu" class="clearfix">
+      <div id="principal">
+        [(#REM) Exclusion des articles, breves et sites ayant le mot clé "exclu" ou "exclu_actualites"]
+        <BOUCLE_exlusion_rubriques(RUBRIQUES){titre_mot==^exclu}{doublons}></BOUCLE_exlusion_rubriques>
+        <BOUCLE_exlusion_articles(ARTICLES){titre_mot==^exclu}{doublons}></BOUCLE_exlusion_articles>
+        <BOUCLE_exlusion_articles_piedpage(ARTICLES){id_groupe=23}{doublons}></BOUCLE_exlusion_articles_piedpage>
+        <BOUCLE_exclusion_breves(BREVES){titre_mot==^exclu}{doublons}></BOUCLE_exclusion_breves>
+        <BOUCLE_exclusion_sites(SITES){titre_mot==^exclu}{doublons}></BOUCLE_exclusion_sites>
+        
+        <BOUCLE_choix_mot(MOTS){id_mot}>
+          [(#ENV{id_mot}|!={0}|oui)[(#SET{titre_mot,[(#TITRE|supprimer_numero)]})]]
+        </BOUCLE_choix_mot>
+
+        <div id="descriptifRubrique" class="clearfix">
+            <h1>[(#TITRE|supprimer_numero)][&nbsp;/ (#GET{titre_mot})]</h1>
+            [(#LOGO_RUBRIQUE||image_reduire{100,0}|inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]})]
+            [(#TEXTE|image_reduire{500,0})]
+        </div>
+
+        [(#INCLURE{fond=inc-podcast}{ajax}{env})]
+
+      </div> <!-- fin principal -->
+      <hr class="invisible" />
+      <div id="secondaire">
+        #FORMULAIRE_RECHERCHE
+        
+        <INCLURE{fond=inc-menuSecondaire}{id_rubrique}>
+        
+        <BOUCLE_exclusion_mot_tech(MOTS){type==modalites}{doublons podcast}></BOUCLE_exclusion_mot_tech>
+        <BOUCLE_exclusion_mot_podcast_accueil(MOTS){id_mot=1558}{doublons podcast}></BOUCLE_exclusion_mot_podcast_accueil>
+        
+        [(#REM) tableau des mots liés aux articles publiés dans la même rubrique ]
+        <BOUCLE_articles_rubriques(ARTICLES){id_rubrique}>
+        <BOUCLE_mots_art(MOTS){id_article}{par titre}{unique}>
+        [(#SET{thematiques,#GET{thematiques}|array_merge5{#ARRAY{#COMPTEUR_BOUCLE,#ID_MOT}}})]
+        </BOUCLE_mots_art>
+        </BOUCLE_articles_rubriques>
+
+        <B_affichage_mots>
+        <div class="boite">
+          <h2>Tri des podcasts</h2>
+          <form action="#SELF" method="get" accept-charset="utf-8" class="tri" id="formMot">
+            <input type="hidden" name="rubrique" value="#ID_RUBRIQUE">
+            <label for="mot">Par mot-cl&eacute;</label>
+            <select name="id_mot" id="mot" onchange="this.form.submit();">
+              <option value="">S&eacute;lectionnez&hellip;</option>
+                <option value="0">Tous les podcasts</option>
+                <BOUCLE_affichage_mots(MOTS){id_mot IN #GET{thematiques}}{par titre}{doublons podcast}>
+                [<option value="#ID_MOT">(#TITRE|couper{20})</option>]
+                </BOUCLE_affichage_mots>
+            </select>
+            <input type="submit" value="&rarr;" />
+          </form>
+        </div>
+        </B_affichage_mots>
+        
+        
+        <B_mots_rubrique>
+        <div class="boite">
+            <h2>Mots-cl&eacute;s</h2>
+            <ul>
+                <BOUCLE_mots_rubrique(MOTS){id_rubrique}{type!==modalite}{par num titre, titre}>
+                <li><a href="#URL_MOT">[(#TITRE|supprimer_numero)]</a></li>
+                </BOUCLE_mots_rubrique>
+            </ul>
+        </div>
+        </B_mots_rubrique>
+        
+        <B_doc_rubrique>
+        <div id="documents" class="boite">
+          <h2>Documents</h2>
+          <BOUCLE_doc_rubrique(DOCUMENTS){id_rubrique!=1004}{id_rubrique}{par num titre, titre}{doublons}>
+          <dl class="document">
+              [<dt><a href="#URL_DOCUMENT"[ type="(#MIME_TYPE)"][ title="(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT}|supprimer_tags|attribut_html)[ &bull; (#TYPE_DOCUMENT)][ &bull; (#TAILLE|taille_en_octets)]"]>(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT})</a></dt>]
+              [<dd class="icone"><a href="#URL_DOCUMENT" type="#MIME_TYPE"[ title="(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT}|supprimer_tags|attribut_html)[ &bull; (#TYPE_DOCUMENT)][ &bull; (#TAILLE|taille_en_octets)]"]>(#LOGO_DOCUMENT||image_reduire{44,0}|inserer_attribut{alt,[(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT}|supprimer_tags|attribut_html)] - #TYPE_DOCUMENT - [(#TAILLE|taille_en_octets)]})</a></dd>]
+              <dd>[(#DESCRIPTIF)](#ID_DOCUMENT [(#TYPE_DOCUMENT)][ &bull; (#TAILLE|taille_en_octets)])</dd>
+          </dl>
+          </BOUCLE_doc_rubrique>
+        </div>
+        </B_doc_rubrique>
+        
+        [(#ID_RUBRIQUE|=={1024}|?{'',' '})
+        <INCLURE{fond=inc-reunionQualiteVie}>]
+        
+        <!-- <p><a href="spip.php?page=groupemot">Index des mots-clés</a></p> -->
+        
+        <INCLURE{fond=inc-infoCartes}{id_rubrique}>
+        
+        [(#REM) on affiche pas le dernier numéro dans la rubrique Info Traitements ]
+        [(#ID_RUBRIQUE|=={1004}|?{'',' '})
+        <INCLURE{fond=inc-infoTraitementsCouv}{id_rubrique}>
+        ]
+
+        <INCLURE{fond=inc-raccourcis}>
+
+        <INCLURE{fond=inc-agenda}>
+        
+        
+        <INCLURE{fond=inc-liens}{id_rubrique}>
+        
+      </div> <!-- fin secondaire -->
+    </div> <!-- fin contenu -->
+    <hr class="invisible" />
+    <INCLURE{fond=inc-piedPage}>
+  </div> <!-- fin conteneur -->
+</body>
+</html>
+</BOUCLE_p>

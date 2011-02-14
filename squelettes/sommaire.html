@@ -1,0 +1,145 @@
+#CACHE{24*3600}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG">
+<head>
+    <title>[(#NOM_SITE_SPIP|supprimer_tags|attribut_html)]</title>
+    [<meta name="description" content="(#DESCRIPTIF_SITE_SPIP|textebrut)">]
+    <INCLURE{fond=inc-head}>
+    
+</head>
+
+<body>
+  <div id="conteneur">
+    <div id="entete">
+      <h1 id="logo">[(#LOGO_SITE_SPIP||inserer_attribut{'alt',[(#NOM_SITE_SPIP|supprimer_tags|attribut_html)]})]</h1>
+      <div id="banniere">
+          [(#CONFIG{bannieres/A/choixImage}|?{' '})
+          <INCLURE{fond=inc-bannieres}{position=A}>
+          ]
+          [(#CONFIG{bannieres/A/choixImage}|?{'',' '})[(#CONFIG{bannieres/B/choixImage}|?{' '})
+          <INCLURE{fond=inc-bannieres}{position=B}>
+          ]]
+          [(#CONFIG{bannieres/A/choixImage}|?{'',' '})[(#CONFIG{bannieres/B/choixImage}|?{'',' '})
+          <img src="squelettes/img/banniere-remplacement.gif" width="590" height="121" alt="banniere">
+          ]]
+      </div>
+      <INCLURE{fond=inc-menuPrincipalSommaire}>
+      
+    </div><!-- fin entete -->
+    <div id="filAriane">
+      <p><span class="on"><:accueil_site:></span></p>
+    </div>
+    <div id="contenu" class="clearfix">
+      <div id="principal">
+        [(#REM) Exclusion des articles, breves et sites ayant le mot clé "exclu" ou "exclu_actualites"]
+        <BOUCLE_exlusion_articles(ARTICLES){titre_mot==^exclu}{doublons}></BOUCLE_exlusion_articles>
+        <BOUCLE_exlusion_articles_piedpage(ARTICLES){id_groupe=23}{doublons}></BOUCLE_exlusion_articles_piedpage>
+        <BOUCLE_exclusion_breves(BREVES){titre_mot==^exclu}{doublons}></BOUCLE_exclusion_breves>
+        <BOUCLE_exclusion_sites(SITES){titre_mot==^exclu}{doublons}></BOUCLE_exclusion_sites>
+        
+        [(#REM) articles avec le mot-clé "ouvert actualité"]
+        <B_ouvert_actualites>
+        <BOUCLE_ouvert_actualites(ARTICLES){lang}{!par date} {titre_mot=ouvert_actualites} {doublons}>
+        <div class="entree">
+          [<p class="surtitre">(#SURTITRE)</p>]
+          <h2><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></h2>
+          [<p class="soustitre">(#SOUSTITRE)</p>]
+          <p class="infosPlus">publi&eacute; le [(#DATE|affdate)] <B_auteurs_art_ouvert> &bull; <:par_auteur:> <BOUCLE_auteurs_art_ouvert(AUTEURS) {id_article} {", "}>#NOM</BOUCLE_auteurs_art_ouvert></B_auteurs_art_ouvert><BOUCLE_rub_art_ouvert(RUBRIQUES) {id_rubrique}> &bull; rubrique [<a href="#URL_RUBRIQUE">(#TITRE|supprimer_numero)</a>]</BOUCLE_rub_art_ouvert></p>
+          [<div class="texte">
+            (#TEXTE|image_reduire{520,0})
+          </div>]
+          [<div class="notes">
+              <h3>Notes</h3>
+              (#NOTES)
+          </div><!-- fin notes -->]
+        </div>
+        </BOUCLE_ouvert_actualites>
+        </B_ouvert_actualites>
+
+        [(#REM) actualités en résumé ]
+        <B_ouvert_actualites_resume>
+        <BOUCLE_ouvert_actualites_resume(ARTICLES) {lang}{!par date} {titre_mot=ouvert_actualites_resume} {doublons}>
+        <div class="entree">
+          [<p class="surtitre">(#SURTITRE)</p>]
+          <h2><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></h2>
+          [<p class="soustitre">(#SOUSTITRE)</p>]
+          <p class="intro">[(#LOGO_ARTICLE)][(#INTRODUCTION)]<a href="#URL_ARTICLE" class="suite">Lire la suite</a></p>
+          <p class="infosPlus">publi&eacute; le [(#DATE|affdate)] <B_auteurs_un3> &bull; <:par_auteur:> <BOUCLE_auteurs_un3(AUTEURS) {id_article} {", "}>#NOM</BOUCLE_auteurs_un3></B_auteurs_un3><BOUCLE_rub1(RUBRIQUES) {id_rubrique}> &bull; rubrique [<a href="#URL_RUBRIQUE">(#TITRE|supprimer_numero)</a>]</BOUCLE_rub1></p>
+        </div>
+        </BOUCLE_ouvert_actualites_resume>
+        </B_ouvert_actualites_resume>
+
+        <B_ouvert_actualites_resume2>
+        <BOUCLE_ouvert_actualites_resume2(ARTICLES){lang}{!par date}{titre_mot=ouvert_actualites_resume}{doublons}>
+        <div class="entree">
+          [<p class="surtitre">(#SURTITRE)</p>]
+          <h2><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></h2>
+          [<p class="soustitre">(#SOUSTITRE)</p>]
+          <p class="intro">[(#LOGO_ARTICLE)][(#INTRODUCTION)]<a href="#URL_ARTICLE" class="suite">Lire la suite</a></p>
+            <p class="infosPlus">publi&eacute; le [(#DATE|affdate)] <B_auteurs_un5>&bull; <:par_auteur:> <BOUCLE_auteurs_un5(AUTEURS) {id_article} {", "}>#NOM</BOUCLE_auteurs_un5></B_auteurs_un5><BOUCLE_rub(RUBRIQUES) {id_rubrique}> &bull; rubrique [<a href="#URL_RUBRIQUE">(#TITRE|supprimer_numero)</a>]</BOUCLE_rub></p>
+        </div>
+        </BOUCLE_ouvert_actualites_resume2>
+        </B_ouvert_actualites_resume2> 
+        </B_ouvert_actualites> 
+        
+        <B_articles_recents>
+        <div class="encadre">
+          <h2>Nos articles r&eacute;cents</h2>
+          <dl>
+            <BOUCLE_articles_recents(ARTICLES){lang}{!par date}{doublons}{0,10}>
+            <dt>[<span class="infosPlus">(#DATE|affdate) </span> ]<a href="#URL_ARTICLE" title="[(#INTRODUCTION|supprimer_tags|attribut_html)]">[(#TITRE|supprimer_numero)]</a></dt>
+            </BOUCLE_articles_recents>
+          </dl>
+        </div>
+        </B_articles_recents>
+        
+        <div class="encadre">
+          <h2>En bref</h2>
+          <dl>
+            <BOUCLE_breves(BREVES){par date}{inverse}{0,10}>
+            <dt>[<span class="infosPlus">(#DATE|affdate_court) </span> ]<a href="#URL_BREVE" title="[(#INTRODUCTION|supprimer_tags|attribut_html)]">#TITRE</a></dt>
+            </BOUCLE_breves>
+          </dl>
+        </div>
+        
+      </div> <!-- fin principal -->
+      <hr class="invisible" />
+      <div id="secondaire">
+        #FORMULAIRE_RECHERCHE
+        
+        <div class="boite">
+          <h2>&Agrave; propos</h2>
+          [(#DESCRIPTIF_SITE_SPIP)]
+        </div>
+        
+        <INCLURE{fond=inc-reunionQualiteVie}>
+        
+        <!-- <p><a href="spip.php?page=groupemot">Index des mots-clés</a></p> -->
+        
+        <INCLURE{fond=inc-infoCartes}>
+
+        <INCLURE{fond=inc-infoTraitementsCouv}>
+
+        <INCLURE {fond=inc-raccourcis}>
+        
+        <INCLURE{fond=inc-agenda}>
+
+        <B_liens>
+        <div class="boite">
+            <h2>Liens utiles</h2>
+            <ul>
+                <BOUCLE_liens(SYNDICATION){par hasard}{id_syndic!=237}{0,10}>
+                <li><a href="#URL_SITE" class="spip_out" title="[(#NOM_SITE|supprimer_numero|supprimer_tags|attribut_html)]">#NOM_SITE</a></li>
+                </BOUCLE_liens>
+            </ul>
+        </div>
+        </B_liens>
+        
+      </div> <!-- fin secondaire -->
+    </div> <!-- fin contenu -->
+    <hr class="invisible" />
+    <INCLURE{fond=inc-piedPage}>
+  </div> <!-- fin conteneur -->
+</body>
+</html>

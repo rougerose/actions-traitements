@@ -1,0 +1,41 @@
+<BOUCLE_r(RUBRIQUES){id_rubrique}>
+
+<form action="#URL_RUBRIQUE" method="post">
+
+<div class="copyright">
+
+Vous &ecirc;tes
+<?php
+	if ($GLOBALS['auteur_session']) {
+		include_spip('inc/texte');
+		echo typo($GLOBALS['auteur_session']['nom']);
+		echo " (<a href='"; ?>#URL_LOGOUT<?php
+		echo "'>d&#233;connexion</a>)";
+	} else {
+		echo $GLOBALS['ip'];
+		echo " (<a href='#URL_PAGE{login,url=#ENV{url}}'>connexion</a>)";
+	}
+
+	// Creation d'un nouvel article, cf. article_fonctions.php
+	include_spip('inc/autoriser');
+	if (autoriser('publierdans', 'rubrique', '#ID_RUBRIQUE')) {
+		echo ' <br />Ajouter une page :
+<input name="ajouter_page_wiki" type="text" value="Titre..." />
+<span style="display:none;">Laissez ce champ vide :
+<input name="pas_de_robot_merci" type="text" value="" /></span>
+<input type="hidden" name="id_rubrique" value="#ID_RUBRIQUE" />
+<input type="submit" name="ok" value="Ok" />
+';
+	}
+?>
+
+<br />
+
+Ce site fonctionne avec le squelette <a href="http://www.spip-contrib.net/Gribouille">Gribouille</a>&nbsp;; inspir&#233; de <a href="http://www.wikini.net/wakka.php?wiki=PagePrincipale">WikiNi</a>
+
+
+
+</div>
+</form>
+
+</BOUCLE_r>
