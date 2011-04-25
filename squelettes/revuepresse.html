@@ -9,9 +9,9 @@
     [<meta name="description" content="(#INTRODUCTION|couper{150}|supprimer_tags|attribut_html)" />]
     [(#REM) Lien vers le flux RSS de la rubrique ]
     <link rel="alternate" type="application/rss+xml" title="<:syndiquer_rubrique:>" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
-    <INCLURE{fond=inc-headtest}>
-    
-    
+    <INCLURE{fond=inc-head}>
+
+
 </head>
 <body>
   <div id="conteneur">
@@ -28,24 +28,24 @@
             [(#LOGO_RUBRIQUE||image_reduire{100,0}|inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]})]
             [(#TEXTE|image_reduire{500,0})]
         </div>
-        
+
         [(#ENV{mot}|?{
             [(#INCLURE{fond=inc-presseRubriqueTriMot}{id_rubrique}{mot=#ENV{mot}}{self=#SELF})]
             ,
             [(#INCLURE{fond=inc-presseRubriqueTriDate}{id_rubrique}{date=#ENV{date}}{self=#SELF})]
         })]
-        
-        
-        
 
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+
+
+
+
         <B_sousrubriques>
         <div id="sousrubriques" class="clearfix">
             <h2>Sous-rubriques</h2>
@@ -58,16 +58,16 @@
             </BOUCLE_sousrubriques>
         </div>
         </B_sousrubriques>
-        
+
       </div> <!-- fin principal -->
       <hr class="invisible" />
       <div id="secondaire">
         #FORMULAIRE_RECHERCHE
-        
+
         [(#INCLURE{fond=inc-menuSecondaire}{id_rubrique})]
-        
-        
-        
+
+
+
         <div class="boite">
             <h2>Sélection</h2>
             <form action="spip.php" method="get" accept-charset="utf-8" class="tri" id="formDate">
@@ -81,7 +81,7 @@
                 </select>
                 <input type="submit" value="&rarr;">
             </form>
-            
+
             <form action="#SELF" method="get" accept-charset="utf-8" class="tri" id="formMot">
                 <input type="hidden" name="rubrique" value="#ID_RUBRIQUE">
                 <label for="mot">Par mot-cl&eacute;</label>
@@ -94,10 +94,10 @@
                 <input type="submit" value="&rarr;">
             </form>
         </div>
-        
-        
-        
-        
+
+
+
+
         <B_mots_rubrique>
         <div class="boite">
             <h2>Mots-cl&eacute;s</h2>
@@ -108,7 +108,7 @@
             </ul>
         </div>
         </B_mots_rubrique>
-        
+
         <B_doc_rubrique>
         <div id="documents" class="boite">
           <h2>Documents</h2>
@@ -121,13 +121,13 @@
           </BOUCLE_doc_rubrique>
         </div>
         </B_doc_rubrique>
-        
+
         [(#ID_RUBRIQUE|=={1019}|?{'',' '})
         [(#INCLURE{fond=inc-reunionQualiteVie})]
         ]
 
         [(#INCLURE{fond=inc-infoCartes}{id_rubrique})]
-        
+
         [(#REM) on affiche pas le dernier numéro dans la rubrique Info Traitements ]
         [(#ID_RUBRIQUE|=={1004}|?{'',' '})
         [(#INCLURE{fond=inc-infoTraitementsCouv}{id_rubrique})]
@@ -136,10 +136,10 @@
         [(#INCLURE{fond=inc-raccourcis})]
 
         [(#INCLURE{fond=inc-agenda})]
-        
-        
+
+
         [(#INCLURE{fond=inc-liens}{id_rubrique})]
-        
+
       </div> <!-- fin secondaire -->
     </div> <!-- fin contenu -->
     <hr class="invisible" />
