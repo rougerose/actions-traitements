@@ -8,7 +8,7 @@
     <title>[(#TITRE|supprimer_numero|supprimer_tags|attribut_html) :: ][(#NOM_SITE_SPIP|supprimer_tags|attribut_html)]</title>
     [<meta name="description" content="(#DESCRIPITF|couper{150}|supprimer_tags|attribut_html)" />]
     <INCLURE{fond=inc-head}>
-    
+
 </head>
 <body>
   <div id="conteneur">
@@ -23,9 +23,11 @@
         [<p class="surtitre">(#SURTITRE)</p>]
         <h1>[(#TITRE|supprimer_numero)]</h1>
         [<p class="soustitre">(#SOUSTITRE)</p>]
-        
+
         <p class="infosPlus">[publi&eacute; (#DATE|jour|=={0}?{"en","le"})][ (#DATE|affdate)][ &bull; <:par_auteur:> (#LESAUTEURS)]</p>
-        
+
+		<INCLURE{fond=inc-alerte,id_article}>
+
         <B_evenements>
         <div id="conteneurRendezvous" class="clearfix">
             <BOUCLE_evenements(EVENEMENTS){id_article}>
@@ -53,23 +55,23 @@
             </BOUCLE_evenements>
         </div>
         </B_evenements>
-        
+
         <div id="contenuArticle">
-            
+
             <div class="chapo[ (#LOGO_ARTICLE||?{' ', ''})clearfix]">
                 [(#LOGO_ARTICLE||inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]}|inserer_attribut{class, "logoArticle"})]
                 [(#CHAPO)]
 
                 [<p class="urlReference"><strong><:voir_en_ligne:></strong> <a href="(#URL_SITE)" class="spip_out"[ title="(#NOM_SITE|sinon{#URL_SITE}|supprimer_numero|supprimer_tags|attribut_html)"]>[(#NOM_SITE|sinon{[(#URL_SITE)]}|supprimer_numero)]</a></p>]
             </div><!-- fin div chapo -->
-            
+
             <div class="texte">
                 [(#PETITION|?{' '})
                 <div class="ancre">
                     <div id="ancrePetition" class="formulaire_spip formulaire_signature">
                         <h2>[<img src="(#CHEMIN{img/icone-petition.png})" width="32" height="32" alt="P&eacute;tition" class="iconePetition">]<a href=#sp#ID_ARTICLE><:petitions:signez:></a></h2>
                     </div><!-- fin ancrePetition -->
-                    
+
                 </div><!-- fin ancre -->
                 ]
                 [(#TEXTE|image_reduire{520,0})]
@@ -83,7 +85,7 @@
                 <h3>Notes</h3>
                 (#NOTES)
             </div><!-- fin notes -->]
-            
+
             <BOUCLE_test_mot_contact(MOTS){id_article}{titre=contact}>
             [(#FORMULAIRE_ECRIRE_AUTEUR)]
             </BOUCLE_test_mot_contact>
@@ -98,7 +100,7 @@
                 </ul>
             </div><!-- fin portfolio -->
             </B_portfolio>
-            
+
             <B_compteur_signatures>
             <BOUCLE_compteur_signatures(SIGNATURES){id_article}></BOUCLE_compteur_signatures>
             [(#TOTAL_BOUCLE|>{0}|?{' '})
@@ -111,21 +113,21 @@
             <//B_compteur_signatures>
 
             [(#FORMULAIRE_SIGNATURE)]
-        
+
         </div><!-- fin contenuArticle -->
         #FIN_SURLIGNE
       </div><!-- fin principal -->
       <hr class="invisible" />
       <div id="secondaire">
         #FORMULAIRE_RECHERCHE
-        
+
         <INCLURE{fond=inc-menuSecondaire}{id_rubrique}>
 
         <BOUCLE_exlusion_mots(MOTS){id_article}{id_groupe IN 18,23}{doublons mots}></BOUCLE_exlusion_mots>
         <B_mots_article>
         <div class="boite">
             <h2>Th&egrave;mes &amp; mots-cl&eacute;s</h2>
-            
+
             <dl class="mots">
                 <BOUCLE_mots_article(MOTS){id_article}{par id_groupe}{doublons mots}>
                 <BOUCLE_groupe(GROUPES_MOTS){id_groupe}{par titre}{unique}>
@@ -134,7 +136,7 @@
                 [<dd><a href="#URL_MOT" title="[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]">(#TITRE)</a></dd>]
                 </BOUCLE_mots_article>
             </dl>
-            
+
         </div>
         </B_mots_article>
 
@@ -150,22 +152,22 @@
           </BOUCLE_doc_article>
         </div>
         </B_doc_article>
-        
+
         [(#ID_RUBRIQUE|=={1024}|?{'',' '})
         <INCLURE{fond=inc-reunionQualiteVie}>]
-        
+
         <!-- <p><a href="spip.php?page=groupemot">Index des mots-clés</a></p> -->
-        
+
         <INCLURE{fond=inc-infoCartes}>
-        
+
         <INCLURE{fond=inc-infoTraitementsCouv}{id_rubrique}>
-        
+
         <INCLURE{fond=inc-raccourcis}>
-        
+
         <INCLURE{fond=inc-agenda}>
-        
+
         <INCLURE{fond=inc-liens}{id_rubrique}>
-        
+
       </div> <!-- fin secondaire -->
     </div><!-- fin contenu -->
     <hr class="invisible" />

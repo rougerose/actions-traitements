@@ -1,4 +1,4 @@
-/* 
+/*
 	-------------------------------------------------
 	Styles écran actions-traitements.org
 	------------------------------------------------
@@ -11,12 +11,12 @@
 
 /* @group reset css */
 
-/* =INITIAL 
+/* =INITIAL
    v2.1, by Faruk Ates - www.kurafire.net
-   Addendum by Robert Nyman - www.robertnyman.com 
+   Addendum by Robert Nyman - www.robertnyman.com
    Addition by Christian Montoya - www.christianmontoya.net */
 
-/* Neutralize styling: 
+/* Neutralize styling:
    Elements we want to clean out entirely: */
 
 html, body, form, fieldset, h1, h2, h3, h4, h5, h6, p, pre, blockquote, ul, ol, dl, address {
@@ -523,7 +523,7 @@ dl.demiColonne dd.icone {
 	font-weight: normal;
 	margin: .3em 0 0;
 	padding-bottom: .2em;
-	
+
 }
 
 .membres div.une h3 {
@@ -664,10 +664,10 @@ div.chapo, div.texte, div.ps, div.notes {
 /* source : http://www.positioniseverything.net/easyclearing.html */
 
 .clearfix:after {
-    content: "."; 
-    display: block; 
-    height: 0; 
-    clear: both; 
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
     visibility: hidden;
 }
 
@@ -966,7 +966,7 @@ div.chapo, div.texte, div.ps, div.notes {
 	position: absolute;
 	top: 0;
 	width: 137px;
-}	
+}
 
 #principal #menuGlossaire li {
 	border-bottom: 1px solid #ddd;
@@ -1253,6 +1253,26 @@ p.message {
 	margin: 2em 0;
 }
 
+.alerte {
+	background: url(../img/fond-petitions.png) repeat-x center bottom;
+	border: 1px solid #99a1b3;
+	margin: 0 0 2em;
+	padding: 5px;
+	-webkit-border-radius: 2px;
+	   -moz-border-radius: 2px;
+	        border-radius: 2px;
+	-webkit-box-shadow: 1px 1px 3px #888;
+	   -moz-box-shadow: 1px 1px 3px #888;
+	     -o-box-shadow: 1px 1px 3px #888;
+	        box-shadow: 1px 1px 3px #888;
+
+}
+
+.alerte p {
+	color: black;
+	margin: 0; }
+	.alerte p span { color: #b02209; font-weight: bold; text-transform: uppercase; }
+
 /* @end */
 
 /* @group formulaires */
@@ -1366,14 +1386,14 @@ form.tri select {
 p#lienAjoutPage, p#lienAjoutEvenement {
 	background: #7cb108 url(../img/fond-espace-membres.png) left center;
 	padding: 0.3em 5px 0.5em;
-	
+
 }
 
 p#lienAjoutPage a, p#lienAjoutEvenement a {
 	background: url(../img/bouton-ajouter-espace-membres.png) no-repeat 100% 50%;
 	color: #fff;
 	padding: 0 22px 0 0;
-	
+
 }
 
 /* Formulaires */
