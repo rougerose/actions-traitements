@@ -1,13 +1,4 @@
 #CACHE{24*7*3600}
 <a id="logo" href="#URL_SITE_SPIP" title="retour &agrave; la page d&#x27;accueil">[(#LOGO_SITE_SPIP||inserer_attribut{'alt',[(#NOM_SITE_SPIP|textebrut)]})]</a>
-<div id="banniere">
-      [(#CONFIG{bannieres/#ID_RUBRIQUE/choixImage}|?{' '})
-      <INCLURE{fond=inc-bannieres}{position=#ID_RUBRIQUE}>
-      ]
-      [(#CONFIG{bannieres/#ID_RUBRIQUE/choixImage}|?{'',' '})[(#CONFIG{bannieres/B/choixImage}|?{' '})
-      <INCLURE{fond=inc-bannieres}{position=B}>
-      ]]
-      [(#CONFIG{bannieres/#ID_RUBRIQUE/choixImage}|?{'',' '})[(#CONFIG{bannieres/B/choixImage}|?{'',' '})
-      <img src="squelettes/img/banniere-remplacement.gif" width="590" height="121" alt="banniere">
-      ]]
-  </div>
+
+<INCLURE{fond=banniere}>
