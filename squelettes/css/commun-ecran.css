@@ -37,7 +37,7 @@ li, dd, blockquote {
 form label {
 	cursor: pointer;
 	display: block;
-	margin: 1em 0 0;
+	xmargin: 1em 0 0;
 }
 
 fieldset {
@@ -1458,6 +1458,35 @@ form#formulaire_login li {
 
 
 /* @end */
+
+.formulaire_spip li { padding: 5px 10px; }
+
+#principal .formulaire_spip p.boutons { text-align: right; }
+
+
+/* formulaires plugin "formidable" */
+div.formulaire_formidable { background: none; }
+	.formulaire_formidable li {
+		clear: both;
+		overflow: hidden;
+		padding-left: 140px; }
+		.formulaire_formidable label {
+			float: left;
+			padding-top: 4px; padding-bottom: 6px;
+			margin-left: -130px;
+			width: 114px }
+	#principal .formulaire_formidable li li { font-size: 1em; line-height: 11px; }
+
+	.formulaire_formidable li.explication,
+	.formulaire_formidable li.fieldset { padding-left: 0; }
+
+
+	.formulaire_formidable .choix label {
+		float: none; display:inline;
+		margin: 0;
+
+
+
 
 /* @group Signatures pétitions / calendrier agenda */
 
