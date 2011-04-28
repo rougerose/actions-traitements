@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	// menu recherche
 	$("#champsRecherche").focus(function(){
-		if ($(this).val()=="recherche") $(this).val('');
+		if ($(this).val()=="rechercher") $(this).val('');
 	});
 
 
