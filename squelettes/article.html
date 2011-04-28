@@ -19,14 +19,13 @@
     <INCLURE{fond=inc-filArianeArticle}{id_rubrique}{id_article}>
     <div id="contenu" class="clearfix">
       <div id="principal" class="articles">
+		<INCLURE{fond=inc-alerte,id_article}>
         #DEBUT_SURLIGNE
         [<p class="surtitre">(#SURTITRE)</p>]
         <h1>[(#TITRE|supprimer_numero)]</h1>
         [<p class="soustitre">(#SOUSTITRE)</p>]
 
         <p class="infosPlus">[publi&eacute; (#DATE|jour|=={0}?{"en","le"})][ (#DATE|affdate)][ &bull; <:par_auteur:> (#LESAUTEURS)]</p>
-
-		<INCLURE{fond=inc-alerte,id_article}>
 
         <B_evenements>
         <div id="conteneurRendezvous" class="clearfix">
