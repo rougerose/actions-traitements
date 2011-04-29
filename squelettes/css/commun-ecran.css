@@ -1297,7 +1297,7 @@ div.formulaire_spip h2 img.iconePetition {
 }
 
 #principal div.formulaire_spip p {
-	font-size: 1em;
+	font-size: 1.2em;
 	text-align: left;
 }
 
@@ -1344,9 +1344,8 @@ div.formulaire_signature input.forml {
 	width: 80%;
 }
 
-.obligatoire, p.reponse_formulaire {
-	color: red;
-	font-weight: bold;
+span.obligatoire {
+	color: #ba1b00;
 }
 
 p.spip_bouton input, p.deconnection a {
