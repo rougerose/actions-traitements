@@ -15,6 +15,22 @@
   <div id="conteneur">
     <div id="entete">
       [(#INCLURE{fond=inc-logo}{id_rubrique})]
+
+		#SET{position,1}
+		[(#REM) variables
+			Sommaire et autres rubrique : position 1
+			Secteur Info-traitements (1004) position 2
+			Secteur Association (1003) position 3
+			Secteur Multimedia (1007) position 4
+			Secteur Réunions (1024) position 5
+		]
+		[(#ID_SECTEUR|=={1004}|oui) #SET{position,2} ]
+		[(#ID_SECTEUR|=={1003}|oui) #SET{position,3} ]
+		[(#ID_SECTEUR|=={1007}|oui) #SET{position,4} ]
+		[(#ID_SECTEUR|=={1024}|oui) #SET{position,5} ]
+		<INCLURE{fond=banniere,position=#GET{position}}>
+
+
       [(#INCLURE{fond=inc-menuPrincipal}{id_rubrique})]
     </div><!-- fin entete -->
     [(#INCLURE{fond=inc-filArianeRubrique}{id_rubrique})]
@@ -37,13 +53,13 @@
             ,
             [(#INCLURE{fond=inc-presseRubriqueTriDate}{id_rubrique}{date=#ENV{date}}{self=#SELF})]
         })]
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
         <B_sousrubriques>
         <div id="sousrubriques" class="clearfix">
             <h2>Sous-rubriques</h2>
@@ -56,14 +72,14 @@
             </BOUCLE_sousrubriques>
         </div>
         </B_sousrubriques>
-        
+
       </div> <!-- fin principal -->
       <hr class="invisible" />
       <div id="secondaire">
         #FORMULAIRE_RECHERCHE
-        
+
         [(#INCLURE{fond=inc-menuSecondaire}{id_rubrique})]
-        
+
         <div class="boite">
             <h2>Sélection</h2>
             <form action="spip.php" method="get" accept-charset="utf-8" class="tri" id="formDate">
@@ -77,7 +93,7 @@
                 </select>
                 <input type="submit" value="&rarr;">
             </form>
-            
+
             <form action="#SELF" method="get" accept-charset="utf-8" class="tri" id="formMot">
                 <input type="hidden" name="rubrique" value="#ID_RUBRIQUE">
                 <label for="mot">Par mot-cl&eacute;</label>
@@ -90,7 +106,7 @@
                 <input type="submit" value="&rarr;">
             </form>
         </div>
-        
+
         <B_mots_rubrique>
         <div class="boite">
             <h2>Mots-cl&eacute;s</h2>
@@ -101,7 +117,7 @@
             </ul>
         </div>
         </B_mots_rubrique>
-        
+
         <B_doc_rubrique>
         <div id="documents" class="boite">
           <h2>Documents</h2>
@@ -114,13 +130,13 @@
           </BOUCLE_doc_rubrique>
         </div>
         </B_doc_rubrique>
-        
+
         [(#ID_RUBRIQUE|=={1019}|?{'',' '})
         [(#INCLURE{fond=inc-reunionQualiteVie})]
         ]
 
         [(#INCLURE{fond=inc-infoCartes}{id_rubrique})]
-        
+
         [(#REM) on affiche pas le dernier numéro dans la rubrique Info Traitements ]
         [(#ID_RUBRIQUE|=={1004}|?{'',' '})
         [(#INCLURE{fond=inc-infoTraitementsCouv}{id_rubrique})]
@@ -129,10 +145,10 @@
         [(#INCLURE{fond=inc-raccourcis})]
 
         [(#INCLURE{fond=inc-agenda})]
-        
-        
+
+
         [(#INCLURE{fond=inc-liens}{id_rubrique})]
-        
+
       </div> <!-- fin secondaire -->
     </div> <!-- fin contenu -->
     <hr class="invisible" />

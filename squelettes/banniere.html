@@ -1,6 +1,3 @@
-#CACHE{0}
 <div id="banniere">
-	<BOUCLE_bannieres(BANNIERES){par hasard}{0,1}>
-	#INCLURE{fond=inc_banniere,position=#POSITION}
-	</BOUCLE_bannieres>
+	#BANNIERE{#ENV{position}}
 </div>

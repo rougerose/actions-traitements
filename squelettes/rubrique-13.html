@@ -15,6 +15,22 @@
   <div id="conteneur">
     <div id="entete">
       <INCLURE{fond=inc-logo}{id_rubrique}>
+
+		#SET{position,1}
+		[(#REM) variables
+			Sommaire et autres rubrique : position 1
+			Secteur Info-traitements (1004) position 2
+			Secteur Association (1003) position 3
+			Secteur Multimedia (1007) position 4
+			Secteur Réunions (1024) position 5
+		]
+		[(#ID_SECTEUR|=={1004}|oui) #SET{position,2} ]
+		[(#ID_SECTEUR|=={1003}|oui) #SET{position,3} ]
+		[(#ID_SECTEUR|=={1007}|oui) #SET{position,4} ]
+		[(#ID_SECTEUR|=={1024}|oui) #SET{position,5} ]
+		<INCLURE{fond=banniere,position=#GET{position}}>
+
+
       <INCLURE{fond=inc-menuPrincipal}{id_rubrique}>
     </div><!-- fin entete -->
     <INCLURE{fond=inc-filArianeRubrique}{id_rubrique}>
@@ -26,7 +42,7 @@
             [(#LOGO_RUBRIQUE||image_reduire{100,0}|inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]})]
             [(#TEXTE|image_reduire{500,0})]
         </div>
-        
+
         <div id="annuaire">
             [(#REM) <!-- on met dans un tableau les sites qui commencent par la même lettre -->]
             [<!--(#REM)La première boucle affiche seulement chaque lettre de l'alphabet avec son lien-->]
@@ -39,18 +55,18 @@
                 </ul>
             </div>
             </B_listalphaone>
-            
+
             [<!--(#REM)La deuxième boucle stocke dans chaque Arraylettre les noms des sites +ou- alphabétiquement sans le l' la les..-->]
             <BOUCLE_listalphadeux(SITES){parsansL}>[(#SET{beginby[(#NOM_SITE|sansle|onelettre)],[(#GET{beginby[(#NOM_SITE|sansle|onelettre)]}|array_merge5{#ARRAY{#COMPTEUR_BOUCLE,#ID_SYNDIC}})]})]</BOUCLE_listalphadeux>
 
             [<h2>(#ENV{lettre,A})</h2>]
             <dl>
-                [(#REM) test du tableau faire  [(#GET{beginbyB}|print_r)]]  
+                [(#REM) test du tableau faire  [(#GET{beginbyB}|print_r)]]
 
                 [(#REM)<!--La troisième boucle affiche les articles stockés dans Arraylettre si seulement ils correspondent bien à la lettre-->]
                 <BOUCLE_artlettre(SITES){id_syndic IN #GET{beginby#ENV{lettre,A}} }{doublons alphabet}>
                 [<dt>
-                    (#NOM_SITE|onelettrebis|=={#ENV{lettre,A}}|?{' ',''}) 
+                    (#NOM_SITE|onelettrebis|=={#ENV{lettre,A}}|?{' ',''})
                     <a href="#URL_SITE">[(#NOM_SITE|sansle)][ ((#NOM_SITE|quele))]</a>
                 </dt>
                 <dd>
@@ -58,10 +74,10 @@
                     <p><a href=#URL_SITE class="spip_out">#URL_SITE</a></p>
                 </dd>]
                 </BOUCLE_artlettre>
-                [(#REM)<!--La quatrième boucle réinterroge les articles stockés de ArrayA dans lequel il y a les accents, ils correspondent bien à la lettre-->] 
-                <BOUCLE_artlettreb(SITES){id_syndic IN #GET{beginbyA}}{doublons alphabet}> 
+                [(#REM)<!--La quatrième boucle réinterroge les articles stockés de ArrayA dans lequel il y a les accents, ils correspondent bien à la lettre-->]
+                <BOUCLE_artlettreb(SITES){id_syndic IN #GET{beginbyA}}{doublons alphabet}>
                 [<dt>
-                    (#NOM_SITE|onelettrebis|=={#ENV{lettre,A}}|?{' ',''}) 
+                    (#NOM_SITE|onelettrebis|=={#ENV{lettre,A}}|?{' ',''})
                     <a href="#URL_SITE">[(#NOM_SITE|sansle)][ ((#NOM_SITE|quele))]</a>
                 </dt>
                 <dd>
@@ -71,7 +87,7 @@
                 </BOUCLE_artlettreb>
             </dl>
         </div>
-        
+
         <BOUCLE_liste_art(ARTICLES){id_rubrique}>
         <div class="entree une clearfix">
           [<p class="surtitre">(#SURTITRE)</p>]
@@ -82,9 +98,9 @@
         </div>
         </BOUCLE_liste_art>
         </BOUCLE_mois_encours>
-        
-        
-        
+
+
+
         <B_sousrubriques>
         <div id="sousrubriques" class="clearfix">
             <h2>Sous-rubriques</h2>
@@ -97,8 +113,8 @@
             </BOUCLE_sousrubriques>
         </div>
         </B_sousrubriques>
-        
-        
+
+
         <B_breves>
         <div class="encadre clearfix">
           <h2>En bref</h2>
@@ -114,17 +130,17 @@
           </div>]
         </div>
         </B_breves>
-        
-        
-        
+
+
+
       </div> <!-- fin principal -->
       <hr class="invisible" />
       <div id="secondaire">
         #FORMULAIRE_RECHERCHE
-        
+
         <INCLURE{fond=inc-menuSecondaire}{id_rubrique}>
-        
-        
+
+
         <B_mots_rubrique>
         <div class="boite">
             <h2>Mots-cl&eacute;s</h2>
@@ -135,7 +151,7 @@
             </ul>
         </div>
         </B_mots_rubrique>
-        
+
         <B_doc_rubrique>
         <div id="documents" class="boite">
           <h2>Documents</h2>
@@ -148,21 +164,21 @@
           </BOUCLE_doc_rubrique>
         </div>
         </B_doc_rubrique>
-        
+
         <INCLURE{fond=inc-reunionQualiteVie}>
-        
-        
+
+
         <!-- <p><a href="spip.php?page=groupemot">Index des mots-clés</a></p> -->
-        
+
         <INCLURE{fond=inc-infoCartes}{id_rubrique}>
-        
+
         [(#REM) on affiche pas le dernier numéro dans la rubrique Info Traitements ]
         [(#ID_RUBRIQUE|=={1004}|?{'',' '})
         <INCLURE{fond=inc-infoTraitementsCouv}{id_rubrique}>
         ]
-        
+
         <INCLURE{fond=inc-raccourcis}>
-        
+
       </div> <!-- fin secondaire -->
     </div> <!-- fin contenu -->
     <hr class="invisible" />
