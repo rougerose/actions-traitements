@@ -7,12 +7,20 @@
 <head>
     <title><:pass_erreur:> 404 :: [(#NOM_SITE_SPIP|supprimer_tags|attribut_html)]</title>
     <INCLURE{fond=inc-head}>
-    
+
 </head>
 <body>
   <div id="conteneur">
     <div id="entete">
       <INCLURE{fond=inc-logo}>
+
+		#SET{position,1}
+		[(#REM) variables
+			Sommaire et autres rubrique : position 1
+
+		]
+
+		<INCLURE{fond=banniere,position=#GET{position}}>
       <INCLURE{fond=inc-menuPrincipal}>
     </div><!-- fin entete -->
     <INCLURE{fond=inc-filArianeArticle}>
@@ -21,17 +29,17 @@
         #DEBUT_SURLIGNE
         <h1><:pass_erreur:> 404</h1>
 
-        
 
-        
+
+
         <div id="contenuArticle">
-            
+
             <div class="chapo">
                 <p>La page demandée n'existe pas</p>
-                
-                
-                
-                
+
+
+
+
             </div><!-- fin div chapo -->
 
 
@@ -39,7 +47,7 @@
 
 
 
-        
+
         </div><!-- fin contenuArticle -->
         #FIN_SURLIGNE
       </div><!-- fin principal -->
@@ -47,13 +55,13 @@
       <div id="secondaire">
         #FORMULAIRE_RECHERCHE
 
-        
-        
 
-        
+
+
+
         <INCLURE{fond=inc-raccourcis}>
 
-        
+
       </div> <!-- fin secondaire -->
     </div><!-- fin contenu -->
     <hr class="invisible" />

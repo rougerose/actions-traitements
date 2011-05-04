@@ -1,4 +1,3 @@
-#CACHE{24*3600}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG">
@@ -10,6 +9,14 @@
     <div id="conteneur">
         <div id="entete">
             <INCLURE{fond=inc-logo}>
+
+			#SET{position,1}
+			[(#REM) variables
+				Sommaire et autres rubriques/pages : position 1
+
+			]
+			<INCLURE{fond=banniere,position=#GET{position}}>
+
             <INCLURE{fond=inc-menuPrincipal}{id_rubrique}>
         </div><!-- fin entete -->
         <INCLURE{fond=inc-filArianeRubrique}{id_rubrique}>
@@ -27,7 +34,7 @@
                     <BOUCLE_articles(ARTICLES){recherche}{par points}{inverse}{pagination}>
                     <dl>
                         <dt><strong>[(#_articles:COMPTEUR_BOUCLE|plus{#ENV{debut}})].</strong> <a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></dt>
-                        
+
                         <dd class="url"><a href="#URL_ARTICLE">[(#URL_ARTICLE|url_absolue)]</a></dd>
                     </dl>
                     </BOUCLE_articles>
@@ -47,7 +54,7 @@
                     <BOUCLE_breves(BREVES){recherche}{par points}{inverse}{pagination 5}>
                     <dl>
                         <dt><strong>[(#_breves:COMPTEUR_BOUCLE|plus{#ENV{debut}})].</strong> <a href="#URL_BREVE">[(#TITRE|supprimer_numero)]</a></dt>
-                        
+
                         <dd class="url"><a href="#URL_BREVE">[(#URL_BREVE|url_absolue)]</a></dd>
                     </dl>
                     </BOUCLE_breves>
@@ -66,7 +73,7 @@
                     <BOUCLE_rubriques(RUBRIQUES){recherche}{par points}{inverse}{pagination 5}>
                     <dl>
                         <dt><strong>[(#_rubriques:COMPTEUR_BOUCLE|plus{#ENV{debut}})].</strong> <a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a></dt>
-                        
+
                         <dd class="url"><a href="#URL_RUBRIQUE">[(#URL_RUBRIQUE|url_absolue)]</a></dd>
                     </dl>
                     </BOUCLE_rubriques>
@@ -85,7 +92,7 @@
                     <BOUCLE_documents(DOCUMENTS){recherche}{par points}{inverse}{pagination 5}>
                     <dl>
                         <dt><strong>[(#_documents:COMPTEUR_BOUCLE|plus{#ENV{debut}})].</strong> <a href="URL_DOCUMENT"[ type="(#MIME_TYPE)"][ title="(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT}|supprimer_tags|attribut_html)[ &bull; (#TYPE_DOCUMENT)][ &bull; (#TAILLE|taille_en_octets)]">[(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT})]</a></dt>
-                        
+
                         <dd class="url"><a href="#URL_DOCUMENT"[ type="(#MIME_TYPE)"][ title="(#TITRE|supprimer_numero|sinon{document #ID_DOCUMENT}|supprimer_tags|attribut_html)[ &bull; (#TYPE_DOCUMENT)][ &bull; (#TAILLE|taille_en_octets)]">[(#URL_DOCUMENT|url_absolue)]</a></dd>
                     </dl>
                     </BOUCLE_documents>
@@ -104,7 +111,7 @@
                     <BOUCLE_mots(MOTS){recherche}{par points}{inverse}{pagination 5}>
                     <dl>
                         <dt><strong>[(#_mots:COMPTEUR_BOUCLE|plus{#ENV{debut}})].</strong> <a href="#URL_MOT">[(#TITRE|supprimer_numero)]</a></dt>
-                        
+
                         <dd class="url"><a href="#URL_MOT">[(#URL_MOT|url_absolue)]</a></dd>
                     </dl>
                     </BOUCLE_mots>
@@ -123,7 +130,7 @@
                     <BOUCLE_sites(SITES){recherche}{par points}{inverse} {pagination 5}>
                     <dl>
                         <dt><strong>[(#_sites:COMPTEUR_BOUCLE|plus{#ENV{debut}})].</strong> <a href="[(#URL_PAGE{site,id_syndic=#ID_SYNDIC})]">[(#NOM_SITE|supprimer_numero)]</a></dt>
-                        
+
                         <dd class="url"><a href="[(#URL_PAGE{site,id_syndic=#ID_SYNDIC})]">[(#URL_PAGE{site,id_syndic=#ID_SYNDIC})]</a></dd>
                     </dl>
                     </BOUCLE_sites>

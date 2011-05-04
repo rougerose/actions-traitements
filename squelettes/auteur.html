@@ -14,6 +14,13 @@
   <div id="conteneur">
     <div id="entete">
       <INCLURE{fond=inc-logo}>
+
+		#SET{position,1}
+		[(#REM) variables
+			Sommaire et autres rubrique : position 1
+		]
+		<INCLURE{fond=banniere,position=#GET{position}}>
+
       <INCLURE{fond=inc-menuPrincipal}>
     </div><!-- fin entete -->
     <div id="filAriane">
@@ -27,7 +34,7 @@
             [(#BIO)]
             [<p class="hyperlien"><:voir_en_ligne:> : <a href="(#URL_SITE)" class="url org spip_out">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]
         </div>
-        
+
         <B_articles_auteur>
         <div class="encadre clearfix">
           #ANCRE_PAGINATION
@@ -44,7 +51,7 @@
         </div>
         </B_articles_auteur>
         #FORMULAIRE_ECRIRE_AUTEUR
-        
+
       </div> <!-- fin principal -->
       <hr class="invisible" />
       <div id="secondaire">
@@ -53,7 +60,7 @@
         <INCLURE{fond=inc-raccourcis}>
 
         <INCLURE{fond=inc-liens}{id_rubrique}>
-        
+
       </div> <!-- fin secondaire -->
     </div> <!-- fin contenu -->
     <hr class="invisible" />

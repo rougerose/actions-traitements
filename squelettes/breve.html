@@ -8,50 +8,65 @@
     <title>[(#TITRE|supprimer_numero|supprimer_tags|attribut_html) :: ][(#NOM_SITE_SPIP|supprimer_tags|attribut_html)]</title>
     [<meta name="description" content="(#INTRODUCTION|couper{150}|supprimer_tags|attribut_html)" />]
     <INCLURE{fond=inc-head}>
-    
+
 </head>
 <body>
   <div id="conteneur">
     <div id="entete">
       <INCLURE{fond=inc-logo}{id_rubrique}>
+
+		#SET{position,1}
+		[(#REM) variables
+			Sommaire et autres rubrique : position 1
+			Secteur Info-traitements (1004) position 2
+			Secteur Association (1003) position 3
+			Secteur Multimedia (1007) position 4
+			Secteur Réunions (1024) position 5
+		]
+		[(#ID_SECTEUR|=={1004}|oui) #SET{position,2} ]
+		[(#ID_SECTEUR|=={1003}|oui) #SET{position,3} ]
+		[(#ID_SECTEUR|=={1007}|oui) #SET{position,4} ]
+		[(#ID_SECTEUR|=={1024}|oui) #SET{position,5} ]
+		<INCLURE{fond=banniere,position=#GET{position}}>
+
       <INCLURE{fond=inc-menuPrincipal}{id_rubrique}>
     </div><!-- fin entete -->
     <INCLURE{fond=inc-filArianeBreve}{id_rubrique}{id_breve}>
     <div id="contenu" class="clearfix">
       <div id="principal" class="articles">
-        
+
         <h1>[(#TITRE|supprimer_numero)]</h1>
-        
+
         <p class="infosPlus">[publi&eacute; (#DATE|jour|=={0}?{"en","le"})][ (#DATE|affdate)][ &bull; <:par_auteur:> (#LESAUTEURS)]</p>
-        
+
         <div id="contenuArticle">
-            
+
             <div class="texte[ (#LOGO_BREVE||?{' ', ''})clearfix]">
                 [(#LOGO_BREVE||inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]}|inserer_attribut{class, "logoArticle"})]
                 [<p class="lien"><strong><:voir_en_ligne:></strong> <a href="(#URL_SITE)" class="spip_out"[ title="(#NOM_SITE|sinon{#URL_SITE}|supprimer_numero|supprimer_tags|attribut_html)"]>[(#NOM_SITE|sinon{[(#URL_SITE)]}|supprimer_numero)]</a></p>]
                 [(#TEXTE|image_reduire{520,0})]
             </div>
-            
-            
+
+
             [<div class="notes">
                 <h3>Notes</h3>
                 (#NOTES)
             </div>]
-            
+
         </div>
-        
+
       </div> <!-- fin principal -->
       <hr class="invisible" />
       <div id="secondaire">
         #FORMULAIRE_RECHERCHE
-        
+
         <INCLURE{fond=inc-menuSecondaire}{id_rubrique}>
-        
+
         <BOUCLE_exlusion_mots(MOTS){id_breve}{id_groupe=18}{doublons mots}></BOUCLE_exlusion_mots>
         <B_mots_article>
         <div class="boite">
             <h2>Th&egrave;mes &amp; mots-cl&eacute;s</h2>
-            
+
             <dl class="mots">
                 <BOUCLE_mots_article(MOTS){id_breve}{par id_groupe}{doublons mots}>
                 <BOUCLE_groupe(GROUPES_MOTS){id_groupe}{par titre}{unique}>
@@ -60,22 +75,22 @@
                 [<dd><a href="#URL_MOT" title="[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]">(#TITRE)</a></dd>]
                 </BOUCLE_mots_article>
             </dl>
-            
+
         </div>
         </B_mots_article>
-        
+
         <!-- <p><a href="spip.php?page=groupemot">Index des mots-clés</a></p> -->
-        
+
         <INCLURE{fond=inc-infoCartes}>
-        
+
         <INCLURE{fond=inc-infoTraitementsCouv}{id_rubrique}>
-        
+
         <INCLURE{fond=inc-raccourcis}>
 
         <INCLURE{fond=inc-rendezvous}>
-        
+
         <INCLURE{fond=inc-liens}{id_rubrique}>
-        
+
       </div> <!-- fin secondaire -->
     </div><!-- fin contenu -->
     <hr class="invisible" />

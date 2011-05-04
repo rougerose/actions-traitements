@@ -8,12 +8,19 @@
     <title>Glossaire :: [(#TYPE) :: ][(#TITRE|supprimer_numero|supprimer_tags|attribut_html) :: ][(#NOM_SITE_SPIP|supprimer_tags|attribut_html)]</title>
     [<meta name="description" content="(#INTRODUCTION|couper{150}|supprimer_tags|attribut_html)" />]
     <INCLURE{fond=inc-head}>
-    
+
 </head>
 <body id="glossaire">
   <div id="conteneur">
     <div id="entete">
       <INCLURE{fond=inc-logo}>
+
+		#SET{position,1}
+		[(#REM) variables
+			Sommaire et autres rubrique : position 1
+		]
+		<INCLURE{fond=banniere,position=#GET{position}}>
+
       <INCLURE{fond=inc-menuPrincipal}>
     </div><!-- fin entete -->
     <div id="filAriane">
@@ -21,9 +28,9 @@
     </div>
     <div id="contenu" class="clearfix">
       <div id="principal" class="articles">
-        
+
         <h1>[(#TITRE|supprimer_numero)]</h1>
-        
+
         <div id="principalArticleReferences">
             <div id="contenuArticle">
                 <h2>Définition</h2>
@@ -36,10 +43,10 @@
                     (#NOTES)
                 </div>]
             </div>
-            
+
             #SET{ouvertureDiv, "<div id='references'><h2>Plus d'informations</h2>"}
             #SET{fermetureDiv, "</div>"}
-            
+
             [(#REM)
             <div id="references">
                 <h2>Plus d'informations</h2>]
@@ -59,7 +66,7 @@
                     </div>]
                 </div>
                 </B_articles_lies>
-                
+
                 <B_breves_liees>
                 [(#GET{ouvertureDiv}|unique)]
                 <div class="encadre clearfix">
@@ -76,7 +83,7 @@
                     </div>]
                 </div>
                 </B_breves_liees>
-                
+
                 <B_rubriques_liees>
                 [(#GET{ouvertureDiv}|unique)]
                 <div class="encadre clearfix">
@@ -93,7 +100,7 @@
                     </div>]
                 </div>
                 </B_rubriques_liees>
-                
+
                 <B_sites_lies>
                 [(#GET{ouvertureDiv}|unique)]
                 <div class="encadre clearfix">
@@ -111,9 +118,9 @@
                 </div>
                 </B_sites_lies>
             <BOUCLE_fermetureDiv_articles(ARTICLES){id_mot}{0,1}>
-            
+
             [(#REM)</div>]
-            
+
             [(#GET{fermetureDiv}|unique)]
             </BOUCLE_fermetureDiv_articles>
             <BOUCLE_fermetureDiv_breves(BREVES){id_mot}{0,1}>
@@ -125,27 +132,27 @@
             <BOUCLE_fermetureDiv_sites(SITES){id_mot}{0,1}>
             [(#GET{fermetureDiv}|unique)]
             </BOUCLE_fermetureDiv_sites>
-            
+
         </div>
-        
-        
+
+
         <INCLURE{fond=inc-groupeMots}{id_mot}{id_groupe}{categorie=#ENV{categorie}}>
-        
-        
-        
-        
+
+
+
+
       </div> <!-- fin principal -->
       <hr class="invisible" />
       <div id="secondaire">
         #FORMULAIRE_RECHERCHE
-        
+
         <INCLURE{fond=inc-raccourcis}>
-        
-        
+
+
         <!-- <p><a href="spip.php?page=groupemot">Index des mots-clés</a></p> -->
-        
-        
-        
+
+
+
       </div> <!-- fin secondaire -->
     </div><!-- fin contenu -->
     <hr class="invisible" />

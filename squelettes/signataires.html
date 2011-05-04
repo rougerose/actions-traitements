@@ -1,4 +1,3 @@
-#CACHE{24*3600}
 <BOUCLE_p(ARTICLES){id_article}>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -8,12 +7,27 @@
     <title>[(#TITRE|supprimer_numero|supprimer_tags|attribut_html) :: ][(#NOM_SITE_SPIP|supprimer_tags|attribut_html)]</title>
     [<meta name="description" content="(#DESCRIPITF|couper{150}|supprimer_tags|attribut_html)" />]
     <INCLURE{fond=inc-head}>
-    
+
 </head>
 <body>
   <div id="conteneur">
     <div id="entete">
       <INCLURE{fond=inc-logo}>
+
+		#SET{position,1}
+		[(#REM) variables
+			Sommaire et autres rubrique : position 1
+			Secteur Info-traitements (1004) position 2
+			Secteur Association (1003) position 3
+			Secteur Multimedia (1007) position 4
+			Secteur Réunions (1024) position 5
+		]
+		[(#ID_SECTEUR|=={1004}|oui) #SET{position,2} ]
+		[(#ID_SECTEUR|=={1003}|oui) #SET{position,3} ]
+		[(#ID_SECTEUR|=={1007}|oui) #SET{position,4} ]
+		[(#ID_SECTEUR|=={1024}|oui) #SET{position,5} ]
+		<INCLURE{fond=banniere,position=#GET{position}}>
+
       <INCLURE{fond=inc-menuPrincipal}{id_rubrique}>
     </div><!-- fin entete -->
     <INCLURE{fond=inc-filArianeArticle}{id_rubrique}{id_article}>
@@ -23,35 +37,35 @@
         [<p class="surtitre">(#SURTITRE)</p>]
         <h1>[(#TITRE|supprimer_numero)]</h1>
         [<p class="soustitre">(#SOUSTITRE)</p>]
-        
+
         <p class="infosPlus">[publi&eacute; (#DATE|jour|=={0}?{"le","en"})][ (#DATE|affdate)][ &bull; <:par_auteur:> (#LESAUTEURS)]</p>
-        
+
         <div id="contenuArticle">
-            
+
             <div class="chapo[ (#LOGO_ARTICLE||?{' ', ''})clearfix]">
                 [(#LOGO_ARTICLE||inserer_attribut{alt,[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]}|inserer_attribut{class, "logoArticle"})]
                 [(#CHAPO)]
                 [<p class="urlReference"><strong><:voir_en_ligne:></strong> <a href="(#URL_SITE)" class="spip_out"[ title="(#NOM_SITE|sinon{#URL_SITE}|supprimer_numero|supprimer_tags|attribut_html)"]>[(#NOM_SITE|sinon{[(#URL_SITE)]}|supprimer_numero)]</a></p>]
             </div>
-            
+
             <div class="texte">
                 [(#PETITION|?{' '})
                 <div class="ancre">
                     <div id="ancrePetition" class="formulaire_spip formulaire_signature">
                         <h2>[<img src="(#CHEMIN{img/icone-petition.png})" width="32" height="32" alt="P&eacute;tition" class="iconePetition">]<a href=#URL_ARTICLE#sp#ID_ARTICLE><:petitions:signez:></a></h2>
                     </div>
-                    
+
                 </div>]
-                
+
                 [<p>(#INTRODUCTION)<a href="#URL_ARTICLE" class="suite">Lire la suite</a></p>]
-                
+
                 <BOUCLE_compteur_signatures(SIGNATURES){id_article}></BOUCLE_compteur_signatures>
                 [(#TOTAL_BOUCLE|>{0}|?{' '})
                 <h2>Les signataires</h2>
-                [<p>[Le (#ENV{date}|affdate)], (#TOTAL_BOUCLE) [(#TOTAL_BOUCLE|>{1}|?{'personnes ont', 'personne a'})] signé cette pétition.</p>] 
+                [<p>[Le (#ENV{date}|affdate)], (#TOTAL_BOUCLE) [(#TOTAL_BOUCLE|>{1}|?{'personnes ont', 'personne a'})] signé cette pétition.</p>]
                 ]
                 <//B_compteur_signatures>
-                
+
                 <B_signatures>
                 <table class="signataires">
                     <tr><th>Date</th><th>Nom</th><th class="derniere">Profession</th></tr>
@@ -61,20 +75,20 @@
                 </table>
                 </B_signatures>
             </div>
-            
+
             [<div class="notes">
                 <h3>Notes</h3>
                 (#NOTES)
             </div>]
-            
-            
+
+
         </div>
         #FIN_SURLIGNE
       </div> <!-- fin principal -->
       <hr class="invisible" />
       <div id="secondaire">
         #FORMULAIRE_RECHERCHE
-        
+
         <div id="menuSecondaire" class="boite">
             #SET{courant, #ID_RUBRIQUE}
             <BOUCLE_rub(RUBRIQUES){id_rubrique}>
@@ -108,14 +122,14 @@
             </BOUCLE_menu_secondaire>
             <//B_hierarchie_menu_secondaire>
         </div>
-        
-        
-        
+
+
+
         <BOUCLE_exlusion_mots(MOTS){id_article}{id_groupe=18}{doublons mots}></BOUCLE_exlusion_mots>
         <B_mots_article>
         <div class="boite">
             <h2>Th&egrave;mes &amp; mots-cl&eacute;s</h2>
-            
+
             <dl class="mots">
                 <BOUCLE_mots_article(MOTS){id_article}{par id_groupe}{doublons mots}>
                 <BOUCLE_groupe(GROUPES_MOTS){id_groupe}{par titre}{unique}>
@@ -124,19 +138,19 @@
                 [<dd><a href="#URL_MOT" title="[(#TITRE|supprimer_numero|supprimer_tags|attribut_html)]">(#TITRE)</a></dd>]
                 </BOUCLE_mots_article>
             </dl>
-            
+
         </div>
         </B_mots_article>
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
         <!-- <p><a href="spip.php?page=groupemot">Index des mots-clés</a></p> -->
-        
+
         <INCLURE {fond=raccourcis}>
-        
+
       </div> <!-- fin secondaire -->
     </div><!-- fin contenu -->
     <hr class="invisible" />
