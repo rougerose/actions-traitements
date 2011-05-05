@@ -18,16 +18,24 @@
 
 		#SET{position,1}
 		[(#REM) variables
-			Sommaire et autres rubrique : position 1
-			Secteur Info-traitements (1004) position 2
-			Secteur Association (1003) position 3
-			Secteur Multimedia (1007) position 4
-			Secteur Réunions (1024) position 5
+			Accueil & InfoTraitements (1004)  et autres pages (recherches, mots, etc.)=> position 1
+			L'association (1003) => 2
+			Traitements (1005) => 3
+			Vivre avec (1010) => 4
+			Participer (1006) => 5
+			Multimedia (1007) => 6
+			Actu (1008) => 7
+			Nos réunions (1024) => 8
+			Revue de presse (1022) => 9
 		]
-		[(#ID_SECTEUR|=={1004}|oui) #SET{position,2} ]
-		[(#ID_SECTEUR|=={1003}|oui) #SET{position,3} ]
-		[(#ID_SECTEUR|=={1007}|oui) #SET{position,4} ]
-		[(#ID_SECTEUR|=={1024}|oui) #SET{position,5} ]
+		[(#ID_SECTEUR|=={1003}|oui) #SET{position,2} ]
+		[(#ID_SECTEUR|=={1005}|oui) #SET{position,3} ]
+		[(#ID_SECTEUR|=={1010}|oui) #SET{position,4} ]
+		[(#ID_SECTEUR|=={1006}|oui) #SET{position,5} ]
+		[(#ID_SECTEUR|=={1007}|oui) #SET{position,6} ]
+		[(#ID_SECTEUR|=={1008}|oui) #SET{position,7} ]
+		[(#ID_SECTEUR|=={1024}|oui) #SET{position,8} ]
+		[(#ID_SECTEUR|=={1022}|oui) #SET{position,9} ]
 		<INCLURE{fond=banniere,position=#GET{position}}>
 
       <INCLURE{fond=inc-menuPrincipal}{id_rubrique}>

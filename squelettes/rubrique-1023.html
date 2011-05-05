@@ -14,19 +14,26 @@
   <div id="conteneur">
     <div id="entete">
       <INCLURE{fond=inc-logo}{id_rubrique}>
-		
 		#SET{position,1}
 		[(#REM) variables
-			Sommaire et autres rubrique : position 1
-			Secteur Info-traitements (1004) position 2
-			Secteur Association (1003) position 3
-			Secteur Multimedia (1007) position 4
-			Secteur Réunions (1024) position 5
+			Accueil & InfoTraitements (1004)  et autres pages (recherches, mots, etc.)=> position 1
+			L'association (1003) => 2
+			Traitements (1005) => 3
+			Vivre avec (1010) => 4
+			Participer (1006) => 5
+			Multimedia (1007) => 6
+			Actu (1008) => 7
+			Nos réunions (1024) => 8
+			Revue de presse (1022) => 9
 		]
-		[(#ID_SECTEUR|=={1004}|oui) #SET{position,2} ]
-		[(#ID_SECTEUR|=={1003}|oui) #SET{position,3} ]
-		[(#ID_SECTEUR|=={1007}|oui) #SET{position,4} ]
-		[(#ID_SECTEUR|=={1024}|oui) #SET{position,5} ]
+		[(#ID_SECTEUR|=={1003}|oui) #SET{position,2} ]
+		[(#ID_SECTEUR|=={1005}|oui) #SET{position,3} ]
+		[(#ID_SECTEUR|=={1010}|oui) #SET{position,4} ]
+		[(#ID_SECTEUR|=={1006}|oui) #SET{position,5} ]
+		[(#ID_SECTEUR|=={1007}|oui) #SET{position,6} ]
+		[(#ID_SECTEUR|=={1008}|oui) #SET{position,7} ]
+		[(#ID_SECTEUR|=={1024}|oui) #SET{position,8} ]
+		[(#ID_SECTEUR|=={1022}|oui) #SET{position,9} ]
 		<INCLURE{fond=banniere,position=#GET{position}}>
 
       <INCLURE{fond=inc-menuPrincipal}{id_rubrique}>
@@ -41,12 +48,12 @@
             [(#TEXTE|image_reduire{500,0})]
         </div>
 
-        
-        
+
+
         [(#ENV{mot}|?{'',' '})
         <INCLURE{fond=inc-listeArticles}{id_rubrique}{self=#SELF}>
         ]
-        
+
         <BOUCLE_liste_art(ARTICLES){id_rubrique}{id_mot=#ENV{mot}}>
         <div class="entree une clearfix">
           [<p class="surtitre">(#SURTITRE)</p>]
@@ -61,9 +68,9 @@
       <hr class="invisible" />
       <div id="secondaire">
         #FORMULAIRE_RECHERCHE
-        
+
         <INCLURE{fond=inc-menuSecondaire}{id_rubrique}>
-        
+
         <div class="boite">
             <h2>S&eacute;lection par th&egrave;me</h2>
             #SET{triAlpha, #ARRAY}
@@ -80,8 +87,8 @@
                 <p class="spip_bouton"><input type="submit" value="Valider"></p>
             </form>
         </div>
-        
-        
+
+
         <B_mots_rubrique>
         <div class="boite">
             <h2>Mots-cl&eacute;s</h2>
@@ -92,7 +99,7 @@
             </ul>
         </div>
         </B_mots_rubrique>
-        
+
         <B_doc_rubrique>
         <div id="documents" class="boite">
           <h2>Documents</h2>
@@ -105,14 +112,14 @@
           </BOUCLE_doc_rubrique>
         </div>
         </B_doc_rubrique>
-        
+
         [(#ID_RUBRIQUE|=={1019}|?{'',' '})
         <INCLURE{fond=inc-reunionQualiteVie}>]
-        
+
         <!-- <p><a href="spip.php?page=groupemot">Index des mots-clés</a></p> -->
-        
+
         <INCLURE{fond=inc-infoCartes}{id_rubrique}>
-        
+
         [(#REM) on affiche pas le dernier numéro dans la rubrique Info Traitements ]
         [(#ID_RUBRIQUE|=={1004}|?{'',' '})
         <INCLURE{fond=inc-infoTraitementsCouv}{id_rubrique}>
@@ -121,10 +128,10 @@
         <INCLURE{fond=inc-raccourcis}>
 
         <INCLURE{fond=inc-agenda}>
-        
-        
+
+
         <INCLURE{fond=inc-liens}{id_rubrique}>
-        
+
       </div> <!-- fin secondaire -->
     </div> <!-- fin contenu -->
     <hr class="invisible" />
